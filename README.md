@@ -2,12 +2,32 @@
 
 Mujidoc is simple html page generator.
 
-## Usage
-
-### Install
+## Installation
 
 ```bash
 go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.3
+```
+
+## Usage
+
+### Execute
+
+following command:
+
+```
+mujidoc
+```
+
+### Content
+
+You place markdown files with the following metadata in SOURCE_DIR.
+
+```
+{ "header": {"name": "Go", "order": 6},  "order": 7, "date": "2024-01-03 15:00" }
+---
+# Title 
+
+something
 ```
 
 ### Configuration file
@@ -49,7 +69,7 @@ Page layout files must be placed as below. Their names are configured by `PAGE_L
     <meta property="og:image" content="https://example.com" />
     <meta name="theme-color" content="#f1f7fe" />
     <meta name="description" content="__DESCRIPTION__" />
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
     <title>__TITLE__</title>
     <link rel="stylesheet" href="__CSS__" type="text/css"  media="all" />

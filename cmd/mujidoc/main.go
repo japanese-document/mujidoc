@@ -89,6 +89,10 @@ func createIndexHtmlFileTask(layout string, outputDir string, indexItems []utils
 }
 
 func main() {
+	err := os.Mkdir(os.Getenv("OUTPUT_DIR"), os.ModePerm)
+	if err != nil {
+		log.Fatalf("%s is existed. Please remove %s.", os.Getenv("OUTPUT_DIR"), os.Getenv("OUTPUT_DIR"))
+	}
 	markDownFileNames, err := utils.GetMarkDownFileNames(os.Getenv("SOURCE_DIR"), ".md")
 	if err != nil {
 		log.Fatalf("%+v", err)

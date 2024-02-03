@@ -4,6 +4,12 @@ Mujidoc is simple html page generator.
 
 ## Usage
 
+### Install
+
+```bash
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.3
+```
+
 ### Configuration file
 
 You need to place a configuration file named `.env.mujidoc`. Here is an example:

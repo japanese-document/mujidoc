@@ -22,5 +22,6 @@ go.work
 
 src
 docs
-
 .env.mujidoc
+
+.vscode

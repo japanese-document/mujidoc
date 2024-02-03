@@ -93,8 +93,9 @@ func CreateTitle(md string) string {
 // It constructs the URL based on the source directory and base URL obtained from environment variables.
 func CreateURL(dir, name string) string {
 	trimmedDir := strings.TrimPrefix(dir, os.Getenv("SOURCE_DIR"))
-	trimmedDir = strings.TrimPrefix(trimmedDir, "/")
-	return os.Getenv("BASE_URL") + "/" + trimmedDir + "/" + name + ".html"
+	trimmedDir = strings.Trim(trimmedDir, "/")
+	trimmedBaseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
+	return trimmedBaseURL + "/" + trimmedDir + "/" + name + ".html"
 }
 
 // GetDirAndName extracts the directory path and file name (without extension) from a file path.

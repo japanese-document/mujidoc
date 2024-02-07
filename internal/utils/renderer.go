@@ -21,11 +21,23 @@ func (r customRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
 func (r customRenderer) renderLink(w util.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
 	if entering {
 		n := node.(*ast.Link)
-		w.WriteString(`<a href="`)
-		w.Write(util.EscapeHTML(n.Destination))
-		w.WriteString(`" class="Link">`)
+		_, err := w.WriteString(`<a href="`)
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.Write(util.EscapeHTML(n.Destination))
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.WriteString(`" class="Link">`)
+		if err != nil {
+			return 0, err
+		}
 	} else {
-		w.WriteString("</a>")
+		_, err := w.WriteString("</a>")
+		if err != nil {
+			return 0, err
+		}
 	}
 	return ast.WalkContinue, nil
 }
@@ -35,10 +47,16 @@ func (r customRenderer) renderHeading(w util.BufWriter, source []byte, node ast.
 	if entering {
 		headingID := CreateHash(string(heading.Text(source)))
 		startTag := fmt.Sprintf(`<h%d id="%s"><a href="#%s" class="anchor">#</a>`, heading.Level, headingID, headingID)
-		w.WriteString(startTag)
+		_, err := w.WriteString(startTag)
+		if err != nil {
+			return 0, err
+		}
 	} else {
 		endTag := fmt.Sprintf(`</h%d>`, heading.Level)
-		w.WriteString(endTag)
+		_, err := w.WriteString(endTag)
+		if err != nil {
+			return 0, err
+		}
 	}
 	return ast.WalkContinue, nil
 }
@@ -47,11 +65,26 @@ func (r customRenderer) renderImage(w util.BufWriter, source []byte, node ast.No
 	if entering {
 		n := node.(*ast.Image)
 		destination := string(n.Destination)
-		w.WriteString(`<img src="`)
-		w.WriteString(destination)
-		w.WriteString(`" alt="`)
-		w.WriteString(destination)
-		w.WriteString(`">`)
+		_, err := w.WriteString(`<img src="`)
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.WriteString(destination)
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.WriteString(`" alt="`)
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.WriteString(destination)
+		if err != nil {
+			return 0, err
+		}
+		_, err = w.WriteString(`">`)
+		if err != nil {
+			return 0, err
+		}
 	}
 	return ast.WalkContinue, nil
 }

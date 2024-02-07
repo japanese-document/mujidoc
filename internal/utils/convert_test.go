@@ -130,7 +130,7 @@ func TestCreateURL(t *testing.T) {
 		{
 			name: "Root directory",
 			args: args{dir: os.Getenv("SOURCE_DIR") + "/source", name: "index"},
-			want: os.Getenv("BASE_URL") + "/source/index.html",
+			want: os.Getenv("BASE_URL") + "source/index.html",
 		},
 	}
 	for _, tt := range tests {

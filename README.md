@@ -20,7 +20,7 @@ mujidoc
 
 ### Content
 
-You place markdown files with the following metadata in SOURCE_DIR.
+You place markdown files with the following metadata in `SOURCE_DIR`.
 
 ```
 { "header": {"name": "Go", "order": 6},  "order": 7, "date": "2024-01-03 15:00" }
@@ -36,7 +36,7 @@ You need to place a configuration file named `.env.mujidoc`. Here is an example:
 
 ```
 CSS_PATH=/app.css?v=001
-BASE_URL=http://example.com/
+BASE_URL=https://example.com/
 PAGE_LAYOUT=src/layout.html
 INDEX_PAGE_HEADER=Lit
 INDEX_PAGE_TITLE=Lit

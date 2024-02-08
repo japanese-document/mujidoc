@@ -3,6 +3,7 @@ package utils
 import (
 	"log"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
@@ -238,6 +239,54 @@ func TestCreateIndexMenu(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := CreateIndexMenu(tt.args.items); got != tt.want {
 				t.Errorf("CreateIndexMenu() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestCreateHTMLFilePath(t *testing.T) {
+	type args struct {
+		dir       string
+		sourceDir string
+		outputDir string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "TestSubdirectory",
+			args: args{
+				dir:       "/home/user/source/articles",
+				sourceDir: "/home/user/source",
+				outputDir: "/home/user/output",
+			},
+			want: filepath.Join("/home/user/output", "articles"),
+		},
+		{
+			name: "TestNoSubdirectory",
+			args: args{
+				dir:       "/home/user/source",
+				sourceDir: "/home/user/source",
+				outputDir: "/home/user/output",
+			},
+			want: "/home/user/output",
+		},
+		{
+			name: "TestNestedSubdirectory",
+			args: args{
+				dir:       "/home/user/source/articles/2020",
+				sourceDir: "/home/user/source",
+				outputDir: "/home/user/output",
+			},
+			want: filepath.Join("/home/user/output", "articles/2020"),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := CreateHTMLFilePath(tt.args.dir, tt.args.sourceDir, tt.args.outputDir); got != tt.want {
+				t.Errorf("CreateHTMLFilePath() = %v, want %v", got, tt.want)
 			}
 		})
 	}

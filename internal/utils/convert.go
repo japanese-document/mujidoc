@@ -383,3 +383,21 @@ func CreatePages(markDownFileNames []string) ([]*Page, error) {
 
 	return pages, nil
 }
+
+// CreateHTMLFilePath constructs the file path for an HTML file based on the given directory, source directory, and output directory.
+// It calculates the subdirectory path by removing the source directory prefix from the given directory path.
+// This subdirectory path is then appended to the output directory to form the final file path.
+// Parameters:
+// - dir: The directory where the original Markdown file resides. It is expected to be a subdirectory of the source directory.
+// - sourceDir: The root directory of all source Markdown files.
+// - outputDir: The root directory where the resulting HTML files should be saved.
+// Returns:
+// The constructed file path for the HTML file, which combines the output directory and the subdirectory derived from the given directory, excluding the source directory prefix.
+func CreateHTMLFilePath(dir, sourceDir, outputDir string) string {
+	subDir := ""
+	prefixDirCount := len(sourceDir) + len("/")
+	if len(dir) > prefixDirCount {
+		subDir = dir[prefixDirCount:]
+	}
+	return filepath.Join(outputDir, subDir)
+}

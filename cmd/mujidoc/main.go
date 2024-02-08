@@ -42,12 +42,7 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 		if err != nil {
 			return err
 		}
-		subDir := ""
-		prefixDirCount := len(sourceDir) + len("/")
-		if len(dir) > prefixDirCount {
-			subDir = dir[prefixDirCount:]
-		}
-		dirPath := filepath.Join(outputDir, subDir)
+		dirPath := utils.CreateHTMLFilePath(dir, sourceDir, outputDir)
 		if !utils.IsDirExists(dirPath) {
 			err := os.MkdirAll(dirPath, os.ModePerm)
 			if err != nil {

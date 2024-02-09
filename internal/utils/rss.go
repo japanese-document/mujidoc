@@ -87,9 +87,9 @@ func compareFn(p1, p2 *Page) bool {
 	return t1.After(t2) // 降順にソート
 }
 
-func CreateRssFileTask(pages []*Page) func() error {
+func CreateRssFileTask(pages []*Page, tz string) func() error {
 	return func() error {
-		location, err := time.LoadLocation("Asia/Tokyo")
+		location, err := time.LoadLocation(tz)
 		if err != nil {
 			return errors.WithStack(err)
 		}

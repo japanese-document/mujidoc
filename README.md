@@ -46,6 +46,7 @@ OUTPUT_DIR=docs
 SOURCE_DIR=src
 SINGLE_PAGE=false
 RSS=true
+TIME_ZONE="Asia/Tokyo"
 ```
 
 ### Images

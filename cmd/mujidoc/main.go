@@ -42,7 +42,7 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 		if err != nil {
 			return err
 		}
-		dirPath := utils.CreateHTMLFilePath(dir, sourceDir, outputDir)
+		dirPath := utils.CreateHTMLFileDir(dir, sourceDir, outputDir)
 		if !utils.IsDirExists(dirPath) {
 			err := os.MkdirAll(dirPath, os.ModePerm)
 			if err != nil {
@@ -140,7 +140,7 @@ func main() {
 	eg.Go(task)
 
 	if os.Getenv("RSS") == "true" {
-		task := utils.CreateRssFileTask(pages)
+		task := utils.CreateRssFileTask(pages, os.Getenv("TIME_ZONE"))
 		eg.Go(task)
 	}
 

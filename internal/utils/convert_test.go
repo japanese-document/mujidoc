@@ -244,7 +244,7 @@ func TestCreateIndexMenu(t *testing.T) {
 	}
 }
 
-func TestCreateHTMLFilePath(t *testing.T) {
+func TestCreateHTMLFileDir(t *testing.T) {
 	type args struct {
 		dir       string
 		sourceDir string
@@ -285,7 +285,7 @@ func TestCreateHTMLFilePath(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CreateHTMLFilePath(tt.args.dir, tt.args.sourceDir, tt.args.outputDir); got != tt.want {
+			if got := CreateHTMLFileDir(tt.args.dir, tt.args.sourceDir, tt.args.outputDir); got != tt.want {
 				t.Errorf("CreateHTMLFilePath() = %v, want %v", got, tt.want)
 			}
 		})

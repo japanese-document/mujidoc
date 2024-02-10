@@ -170,8 +170,6 @@ func CreateDescription(htmlStr string) (string, error) {
 
 	result := strings.ReplaceAll(text, "\n", "")
 	result = strings.ReplaceAll(result, "\"", "&quot;")
-	// removing <a>#</a>
-	result = strings.TrimPrefix(result, "#")
 	if len(result) > 300 {
 		result = result[:300]
 	}

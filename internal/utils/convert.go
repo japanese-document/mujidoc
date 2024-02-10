@@ -95,6 +95,9 @@ func CreateURL(dir, name string) string {
 	trimmedDir := strings.TrimPrefix(dir, os.Getenv("SOURCE_DIR"))
 	trimmedDir = strings.Trim(trimmedDir, "/")
 	trimmedBaseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
+	if trimmedDir == "" {
+		return trimmedBaseURL + "/" + name + ".html"
+	}
 	return trimmedBaseURL + "/" + trimmedDir + "/" + name + ".html"
 }
 

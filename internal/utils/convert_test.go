@@ -129,9 +129,14 @@ func TestCreateURL(t *testing.T) {
 		want string
 	}{
 		{
-			name: "Root directory",
+			name: "Sub directory",
 			args: args{dir: os.Getenv("SOURCE_DIR") + "/source", name: "index"},
-			want: os.Getenv("BASE_URL") + "source/index.html",
+			want: os.Getenv("BASE_URL") + "/source/index.html",
+		},
+		{
+			name: "Root directory",
+			args: args{dir: os.Getenv("SOURCE_DIR"), name: "index"},
+			want: os.Getenv("BASE_URL") + "/index.html",
 		},
 	}
 	for _, tt := range tests {
@@ -287,6 +292,81 @@ func TestCreateHTMLFileDir(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := CreateHTMLFileDir(tt.args.dir, tt.args.sourceDir, tt.args.outputDir); got != tt.want {
 				t.Errorf("CreateHTMLFilePath() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsHeader(t *testing.T) {
+	type args struct {
+		line string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "# is a header",
+			args: args{
+				line: "# This a header",
+			},
+			want: true,
+		},
+		{
+			name: "## is a header",
+			args: args{
+				line: "## This is a header",
+			},
+			want: true,
+		},
+		{
+			name: "### is a header",
+			args: args{
+				line: "### This is also a header",
+			},
+			want: true,
+		},
+		{
+			name: "#### is a header",
+			args: args{
+				line: "#### This is still a header",
+			},
+			want: true,
+		},
+		{
+			name: "##### is a header but not detected",
+			args: args{
+				line: "##### This is not detected as a header by IsHeader",
+			},
+			want: false,
+		},
+		{
+			name: "Non-header text",
+			args: args{
+				line: "This is just some text.",
+			},
+			want: false,
+		},
+		{
+			name: "Empty string",
+			args: args{
+				line: "",
+			},
+			want: false,
+		},
+		{
+			name: "There is no space",
+			args: args{
+				line: "#This a header",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsHeader(tt.args.line); got != tt.want {
+				t.Errorf("IsHeader() = %v, want %v for line %v", got, tt.want, tt.args.line)
 			}
 		})
 	}

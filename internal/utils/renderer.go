@@ -46,13 +46,13 @@ func (r customRenderer) renderHeading(w util.BufWriter, source []byte, node ast.
 	heading := node.(*ast.Heading)
 	if entering {
 		headingID := CreateHash(string(heading.Text(source)))
-		startTag := fmt.Sprintf(`<h%d id="%s"><a href="#%s" class="anchor">#</a>`, heading.Level, headingID, headingID)
+		startTag := fmt.Sprintf(`<h%d id="%s"><a href="#%s">`, heading.Level, headingID, headingID)
 		_, err := w.WriteString(startTag)
 		if err != nil {
 			return 0, err
 		}
 	} else {
-		endTag := fmt.Sprintf(`</h%d>`, heading.Level)
+		endTag := fmt.Sprintf(`</a></h%d>`, heading.Level)
 		_, err := w.WriteString(endTag)
 		if err != nil {
 			return 0, err

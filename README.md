@@ -36,8 +36,7 @@ something
 You need to place a configuration file named `.env.mujidoc`. Here is an example:
 
 ```
-CSS_PATH=/app.css?v=001
-BASE_URL=https://example.com/
+BASE_URL=https://example.com/foo
 PAGE_LAYOUT=src/layout.html
 INDEX_PAGE_HEADER=Lit
 INDEX_PAGE_TITLE=Lit

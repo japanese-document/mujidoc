@@ -21,7 +21,7 @@ func init() {
 	}
 }
 
-func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, outputDir string) func() error {
+func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, outputDir, baseUrl string) func() error {
 	return func() error {
 		content, err := os.ReadFile(markDownFileName)
 		if err != nil {
@@ -38,7 +38,8 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 		if err != nil {
 			return err
 		}
-		page, err := utils.CreatePage(pageLayout, md, title, url, indexMenu, headerList)
+		cssPath := fmt.Sprintf("%s/app.css?v=%s", baseUrl, css.Version())
+		page, err := utils.CreatePage(pageLayout, md, title, url, cssPath, indexMenu, headerList)
 		if err != nil {
 			return err
 		}
@@ -121,7 +122,7 @@ func main() {
 
 	// markdownからhtmlを生成する
 	for _, markDownFileName := range markDownFileNames {
-		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, os.Getenv("SOURCE_DIR"), os.Getenv("OUTPUT_DIR"))
+		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, os.Getenv("SOURCE_DIR"), os.Getenv("OUTPUT_DIR"), os.Getenv("BASE_URL"))
 		eg.Go(task)
 	}
 

@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect
+	github.com/google/uuid v1.6.0
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/yuin/goldmark v1.7.0
 	golang.org/x/net v0.17.0

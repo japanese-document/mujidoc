@@ -284,7 +284,7 @@ func IsHeader(line string) bool {
 }
 
 // CreatePage generates the HTML for an individual page using the given parameters.
-func CreatePage(layout, md, title, url, indexMenu, headerList string) (string, error) {
+func CreatePage(layout, md, title, url, cssPath, indexMenu, headerList string) (string, error) {
 	var buf bytes.Buffer
 	if err := markdown.Convert([]byte(md), &buf); err != nil {
 		return "", errors.WithStack(err)
@@ -296,7 +296,7 @@ func CreatePage(layout, md, title, url, indexMenu, headerList string) (string, e
 		return "", err
 	}
 
-	html := CreateHTML(layout, title, body, description, url, os.Getenv("CSS_PATH"), indexMenu, headerList)
+	html := CreateHTML(layout, title, body, description, url, cssPath, indexMenu, headerList)
 	return html, nil
 }
 

@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
 
@@ -30,4 +31,8 @@ func CreateWriteTask(outputDirDir, fileName string) func() error {
 		}
 		return nil
 	}
+}
+
+func Version() string {
+	return uuid.NewSHA1(uuid.Nil, []byte(CSS_CONTENT)).String()
 }

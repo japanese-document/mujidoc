@@ -6,10 +6,10 @@
     <meta name="twitter:card" content="summary" />
     <meta property="og:url" content="https://japanese-document.github.io/mujidoc/index.html" />
     <meta property="og:title" content="Mujidoc" />
-    <meta property="og:description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.4UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
+    <meta property="og:description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
     <meta property="og:image" content="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <meta name="theme-color" content="#f1f7fe" />
-    <meta name="description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.4UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
+    <meta name="description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
     <link rel="icon" type="image/png" href="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <title>Mujidoc</title>
     <link rel="stylesheet" href="https://japanese-document.github.io/mujidoc/app.css?v=5909b1d1-6e6f-5bcd-b03d-fa7e680a46a6" type="text/css"  media="all" />
@@ -19,7 +19,7 @@
 </nav></div>
     <main class="main markdown-body">
       <h1 id="Mujidoc"><a href="#Mujidoc" rel="nofollow">Mujidoc</a></h1><p>Mujidoc is a simple static site generator.</p>
-<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2><pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.4
+<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2><pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
 </code></pre>
 <h2 id="Usage"><a href="#Usage" rel="nofollow">Usage</a></h2><h3 id="Execute"><a href="#Execute" rel="nofollow">Execute</a></h3><p>following command:</p>
 <pre><code>mujidoc
@@ -33,11 +33,11 @@ If <code>RSS</code> is <code>false</code>, <code>date</code> in the following ex
 something
 </code></pre>
 <h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3><p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
-<pre><code>BASE_URL=https://example.com/foo
+<pre><code>BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
-INDEX_PAGE_HEADER=Lit
-INDEX_PAGE_TITLE=Lit
-INDEX_PAGE_DESCRIPTION=JavaScriptのWeb UI フレームワーク
+INDEX_PAGE_HEADER=Mujidoc
+INDEX_PAGE_TITLE=Mujidoc
+INDEX_PAGE_DESCRIPTION=&#34;Mujidoc is simple html page generator.&#34;
 INDEX_PAGE_LAYOUT=src/layout.html
 OUTPUT_DIR=docs
 SOURCE_DIR=src
@@ -48,7 +48,7 @@ TIME_ZONE=&#34;Asia/Tokyo&#34;
 <h3 id="Images"><a href="#Images" rel="nofollow">Images</a></h3><p>When providing image files, you need to place the image files in the <code>SOURCE_DIR/images</code> directory. The image files move to <code>OUTPUT_DIR</code>. <code>SOURCE_DIR</code> is configured in the configuration file.</p>
 <h3 id="Page_layout"><a href="#Page_layout" rel="nofollow">Page layout</a></h3><p>Page layout files (<code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code>) must be placed as below. Their names are configured by <code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code> in the configuration file.</p>
 <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&#34;ja&#34;&gt;
+&lt;html lang=&#34;en&#34;&gt;
   &lt;head&gt;
     &lt;meta charset=&#34;UTF-8&#34; /&gt;
     &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width&#34; /&gt;
@@ -56,11 +56,10 @@ TIME_ZONE=&#34;Asia/Tokyo&#34;
     &lt;meta property=&#34;og:url&#34; content=&#34;__URL__&#34; /&gt;
     &lt;meta property=&#34;og:title&#34; content=&#34;__TITLE__&#34; /&gt;
     &lt;meta property=&#34;og:description&#34; content=&#34;__DESCRIPTION__&#34; /&gt;
-    &lt;meta property=&#34;og:image&#34; content=&#34;https://example.com&#34; /&gt;
+    &lt;meta property=&#34;og:image&#34; content=&#34;https://japanese-document.github.io/mujidoc/images/favicon.png&#34; /&gt;
     &lt;meta name=&#34;theme-color&#34; content=&#34;#f1f7fe&#34; /&gt;
     &lt;meta name=&#34;description&#34; content=&#34;__DESCRIPTION__&#34; /&gt;
-    &lt;link rel=&#34;alternate&#34; type=&#34;application/rss+xml&#34; title=&#34;RSS&#34; href=&#34;/rss.xml&#34; /&gt;
-    &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;/images/favicon.png&#34; /&gt;
+    &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;https://japanese-document.github.io/mujidoc/images/favicon.png&#34; /&gt;
     &lt;title&gt;__TITLE__&lt;/title&gt;
     &lt;link rel=&#34;stylesheet&#34; href=&#34;__CSS__&#34; type=&#34;text/css&#34;  media=&#34;all&#34; /&gt;
   &lt;/head&gt;
@@ -71,7 +70,7 @@ TIME_ZONE=&#34;Asia/Tokyo&#34;
     &lt;/main&gt;
     &lt;div class=&#34;right-side&#34;&gt;__HEADER__&lt;/div&gt;
     &lt;footer class=&#34;footer markdown-body&#34;&gt;
-      &lt;a href=&#34;/tips&#34;&gt;Top&lt;/a&gt;
+      &lt;a href=&#34;/mujidoc&#34;&gt;Top&lt;/a&gt;
     &lt;/footer&gt;
   &lt;/body&gt;
 &lt;/html&gt;

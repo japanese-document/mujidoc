@@ -31,7 +31,7 @@ func CopyDir(src, dist string) error {
 // by joining the environment variables "SOURCE_DIR" and "OUTPUT_DIR" with imageDir, respectively.
 // It assumes that "SOURCE_DIR" and "OUTPUT_DIR" are set in the environment.
 func CreateSrcAndOutputDir() (string, string) {
-	return filepath.Join(os.Getenv("SOURCE_DIR"), imageDir), filepath.Join(os.Getenv("OUTPUT_DIR"), imageDir)
+	return filepath.Join(os.Getenv("SOURCE_DIR"), imageDir), os.Getenv("OUTPUT_DIR")
 }
 
 // IsDirExists checks if the directory at the given path exists. It returns true if the directory exists,

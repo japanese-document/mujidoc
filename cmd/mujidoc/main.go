@@ -61,13 +61,10 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 
 func createCopyImageDirTask() func() error {
 	return func() error {
-		srcImageDir, distImageDir := utils.CreateSrcAndOutputDir()
+		srcImageDir := filepath.Join(os.Getenv("SOURCE_DIR"), utils.IMAGE_DIR)
+		outputDir := os.Getenv("OUTPUT_DIR")
 		if utils.IsDirExists(srcImageDir) {
-			err := os.MkdirAll(distImageDir, os.ModePerm)
-			if err != nil {
-				return errors.WithStack(err)
-			}
-			return utils.CopyDir(srcImageDir, distImageDir)
+			return utils.CopyDir(srcImageDir, outputDir)
 		}
 		return nil
 	}
@@ -89,9 +86,14 @@ func createIndexHtmlFileTask(layout string, outputDir string, indexItems []utils
 }
 
 func main() {
-	err := os.Mkdir(os.Getenv("OUTPUT_DIR"), os.ModePerm)
+	outputDir := os.Getenv("OUTPUT_DIR")
+	err := os.RemoveAll(outputDir)
 	if err != nil {
-		log.Fatalf("%s is existed. Please remove %s.", os.Getenv("OUTPUT_DIR"), os.Getenv("OUTPUT_DIR"))
+		log.Fatalf("%+v", err)
+	}
+	err = os.Mkdir(outputDir, os.ModePerm)
+	if err != nil {
+		log.Fatalf("%+v", err)
 	}
 	markDownFileNames, err := utils.GetMarkDownFileNames(os.Getenv("SOURCE_DIR"), ".md")
 	if err != nil {

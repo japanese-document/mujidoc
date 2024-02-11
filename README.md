@@ -10,6 +10,8 @@ go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
 
 ## Usage
 
+You create a configuration file and execute the command.
+
 ### Execute
 
 following command:
@@ -17,6 +19,8 @@ following command:
 ```
 mujidoc
 ```
+
+Please note that this command first deletes the directory specified in `OUTPUT_DIR`, then creates a new directory at `OUTPUT_DIR`.
 
 ### Content
 
@@ -30,6 +34,14 @@ If `RSS` is `false`, `date` in the following example is unnecessary.
 
 something
 ```
+
+#### category.name
+
+#### category.order
+
+#### order
+
+#### date
 
 ### Configuration file
 

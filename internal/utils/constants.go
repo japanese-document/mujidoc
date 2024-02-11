@@ -19,6 +19,6 @@ const (
 	INDEX         = "__INDEX__"
 	CSS           = "__CSS__"
 	URL           = "__URL__"
-	imageDir      = "images"
+	IMAGE_DIR     = "images"
 	CSS_FILE_NAME = "app.css"
 )

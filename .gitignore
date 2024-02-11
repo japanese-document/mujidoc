@@ -20,8 +20,4 @@
 # Go workspace file
 go.work
 
-src
-docs
-.env.mujidoc
-
 .vscode

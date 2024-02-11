@@ -16,15 +16,15 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-type Header struct {
+type Category struct {
 	Name  string `json:"name,omitempty"`
 	Order int    `json:"order,omitempty"`
 }
 
 type Meta struct {
-	Header Header `json:"header,omitempty"`
-	Order  int    `json:"order,omitempty"`
-	Date   string `json:"date,omitempty"`
+	Category Category `json:"header,omitempty"`
+	Order    int      `json:"order,omitempty"`
+	Date     string   `json:"date,omitempty"`
 }
 
 type Page struct {
@@ -205,29 +205,29 @@ func CreateIndexItems(pages []*Page) ([]IndexItem, error) {
 		Pages IndexItemPagesMap
 	}{}
 	for _, page := range pages {
-		headerOrder := page.Meta.Header.Order
-		headerName := page.Meta.Header.Name
+		categoryOrder := page.Meta.Category.Order
+		categoryName := page.Meta.Category.Name
 
-		if _, exists := indexItemsMap[headerOrder]; !exists {
-			indexItemsMap[headerOrder] = struct {
+		if _, exists := indexItemsMap[categoryOrder]; !exists {
+			indexItemsMap[categoryOrder] = struct {
 				Name  string
 				Pages IndexItemPagesMap
 			}{
-				Name:  headerName,
+				Name:  categoryName,
 				Pages: IndexItemPagesMap{},
 			}
 		}
 
-		if indexItemsMap[headerOrder].Name != headerName {
-			return nil, errors.WithStack(fmt.Errorf("Header already exists. Existing item: %#v, Current page: %#v", indexItemsMap[headerOrder], page))
+		if indexItemsMap[categoryOrder].Name != categoryName {
+			return nil, errors.WithStack(fmt.Errorf("header already exists. existing item: %#v, current page: %#v", indexItemsMap[categoryOrder], page))
 		}
 
 		pageOrder := page.Meta.Order
-		if _, exists := indexItemsMap[headerOrder].Pages[pageOrder]; exists {
-			return nil, errors.WithStack(fmt.Errorf("Page already exists. Existing page: %#v, Current page: %#v", indexItemsMap[headerOrder].Pages[pageOrder], page))
+		if _, exists := indexItemsMap[categoryOrder].Pages[pageOrder]; exists {
+			return nil, errors.WithStack(fmt.Errorf("page already exists. existing page: %#v, current page: %#v", indexItemsMap[categoryOrder].Pages[pageOrder], page))
 		}
 
-		indexItemsMap[headerOrder].Pages[pageOrder] = IndexItemPage{
+		indexItemsMap[categoryOrder].Pages[pageOrder] = IndexItemPage{
 			Title: page.Title,
 			URL:   page.URL,
 		}

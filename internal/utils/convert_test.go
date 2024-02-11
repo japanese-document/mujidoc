@@ -61,7 +61,7 @@ func TestGetMetaAndMd(t *testing.T) {
 				content: "{\"header\": {\"name\": \"foo\", \"order\": 123}, \"order\": 3, \"date\": \"2023-01-01 01:02:03\"}\n---\n# Foo\nBar",
 			},
 			want: Meta{
-				Header: Header{
+				Category: Category{
 					Name:  "foo",
 					Order: 123,
 				},

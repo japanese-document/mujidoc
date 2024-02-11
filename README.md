@@ -24,7 +24,7 @@ You place markdown files with the following metadata in `SOURCE_DIR`.
 If `RSS` is `false`, `date` in the following example is unnecessary.
 
 ```
-{ "header": {"name": "Go", "order": 6},  "order": 7, "date": "2024-01-03 15:00" }
+{ "category": {"name": "Go", "order": 6},  "order": 7, "date": "2024-01-03 15:00" }
 ---
 # Title 
 

@@ -5,7 +5,7 @@ Mujidoc is a simple static site generator.
 ## Installation
 
 ```bash
-go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.4
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
 ```
 
 ## Usage
@@ -36,11 +36,11 @@ something
 You need to place a configuration file named `.env.mujidoc` in working directory. Here is an example:
 
 ```
-BASE_URL=https://example.com/foo
+BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
-INDEX_PAGE_HEADER=Lit
-INDEX_PAGE_TITLE=Lit
-INDEX_PAGE_DESCRIPTION=JavaScriptのWeb UI フレームワーク
+INDEX_PAGE_HEADER=Mujidoc
+INDEX_PAGE_TITLE=Mujidoc
+INDEX_PAGE_DESCRIPTION="Mujidoc is simple html page generator."
 INDEX_PAGE_LAYOUT=src/layout.html
 OUTPUT_DIR=docs
 SOURCE_DIR=src

@@ -7,7 +7,7 @@ Mujidoc is a simple static site generator.
 ## Installation
 
 ```bash
-go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.4
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
 ```
 
 ## Usage
@@ -38,11 +38,11 @@ something
 You need to place a configuration file named `.env.mujidoc` in working directory. Here is an example:
 
 ```
-BASE_URL=https://example.com/foo
+BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
-INDEX_PAGE_HEADER=Lit
-INDEX_PAGE_TITLE=Lit
-INDEX_PAGE_DESCRIPTION=JavaScriptのWeb UI フレームワーク
+INDEX_PAGE_HEADER=Mujidoc
+INDEX_PAGE_TITLE=Mujidoc
+INDEX_PAGE_DESCRIPTION="Mujidoc is simple html page generator."
 INDEX_PAGE_LAYOUT=src/layout.html
 OUTPUT_DIR=docs
 SOURCE_DIR=src
@@ -61,7 +61,7 @@ Page layout files (`PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT`) must be placed as belo
 
 ```html
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -69,11 +69,10 @@ Page layout files (`PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT`) must be placed as belo
     <meta property="og:url" content="__URL__" />
     <meta property="og:title" content="__TITLE__" />
     <meta property="og:description" content="__DESCRIPTION__" />
-    <meta property="og:image" content="https://example.com" />
+    <meta property="og:image" content="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <meta name="theme-color" content="#f1f7fe" />
     <meta name="description" content="__DESCRIPTION__" />
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" type="image/png" href="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <title>__TITLE__</title>
     <link rel="stylesheet" href="__CSS__" type="text/css"  media="all" />
   </head>
@@ -84,7 +83,7 @@ Page layout files (`PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT`) must be placed as belo
     </main>
     <div class="right-side">__HEADER__</div>
     <footer class="footer markdown-body">
-      <a href="/tips">Top</a>
+      <a href="/mujidoc">Top</a>
     </footer>
   </body>
 </html>

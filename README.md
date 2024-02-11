@@ -1,6 +1,6 @@
 # Mujidoc
 
-Mujidoc is simple html page generator.
+Mujidoc is a simple static site generator.
 
 ## Installation
 
@@ -33,7 +33,7 @@ something
 
 ### Configuration file
 
-You need to place a configuration file named `.env.mujidoc`. Here is an example:
+You need to place a configuration file named `.env.mujidoc` in working directory. Here is an example:
 
 ```
 BASE_URL=https://example.com/foo
@@ -51,11 +51,11 @@ TIME_ZONE="Asia/Tokyo"
 
 ### Images
 
-When providing image files, you need to place the image files in the `SOURCE_DIR/images` directory. `SOURCE_DIR` is configured in the configuration file.
+When providing image files, you need to place the image files in the `SOURCE_DIR/images` directory. The image files move to `OUTPUT_DIR`. `SOURCE_DIR` is configured in the configuration file.
 
 ### Page layout
 
-Page layout files must be placed as below. Their names are configured by `PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT` in the configuration file. 
+Page layout files (`PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT`) must be placed as below. Their names are configured by `PAGE_LAYOUT` and `INDEX_PAGE_LAYOUT` in the configuration file. 
 
 ```html
 <!DOCTYPE html>

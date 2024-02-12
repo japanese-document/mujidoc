@@ -2,7 +2,6 @@ package utils
 
 import (
 	"log"
-	"os"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -120,8 +119,10 @@ func TestCreateTitle(t *testing.T) {
 
 func TestCreateURL(t *testing.T) {
 	type args struct {
-		dir  string
-		name string
+		dir       string
+		name      string
+		sourceDir string
+		baseURL   string
 	}
 	tests := []struct {
 		name string
@@ -130,18 +131,18 @@ func TestCreateURL(t *testing.T) {
 	}{
 		{
 			name: "Sub directory",
-			args: args{dir: os.Getenv("SOURCE_DIR") + "/source", name: "index"},
-			want: os.Getenv("BASE_URL") + "/source/index.html",
+			args: args{dir: "src/source", name: "index", sourceDir: "src", baseURL: "https://example.com"},
+			want: "https://example.com/source/index.html",
 		},
 		{
 			name: "Root directory",
-			args: args{dir: os.Getenv("SOURCE_DIR"), name: "index"},
-			want: os.Getenv("BASE_URL") + "/index.html",
+			args: args{dir: "src", name: "index", sourceDir: "src", baseURL: "https://example.com"},
+			want: "https://example.com/index.html",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CreateURL(tt.args.dir, tt.args.name); got != tt.want {
+			if got := CreateURL(tt.args.dir, tt.args.name, tt.args.sourceDir, tt.args.baseURL); got != tt.want {
 				t.Errorf("CreateURL() = %v, want %v", got, tt.want)
 			}
 		})

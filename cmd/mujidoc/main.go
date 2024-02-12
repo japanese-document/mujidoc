@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/japanese-document/mujidoc/internal/css"
 	"github.com/japanese-document/mujidoc/internal/utils"
@@ -33,7 +34,7 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 		}
 		title := utils.CreateTitle(md)
 		dir, name := utils.GetDirAndName(markDownFileName)
-		url := utils.CreateURL(dir, name)
+		url := utils.CreateURL(dir, name, sourceDir, baseUrl)
 		headerList, err := utils.CreateHeaderList(md)
 		if err != nil {
 			return err
@@ -87,6 +88,7 @@ func createIndexHtmlFileTask(layout string, outputDir string, indexItems []utils
 func main() {
 	sourceDir := os.Getenv("SOURCE_DIR")
 	outputDir := os.Getenv("OUTPUT_DIR")
+	baseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
 	err := os.RemoveAll(outputDir)
 	if err != nil {
 		log.Fatalf("%+v", err)
@@ -102,7 +104,7 @@ func main() {
 
 	pages := []*utils.Page{}
 	if os.Getenv("SINGLE_PAGE") != "true" {
-		pages, err = utils.CreatePages(markDownFileNames)
+		pages, err = utils.CreatePages(markDownFileNames, sourceDir, baseURL)
 		if err != nil {
 			log.Fatalf("%+v", err)
 		}
@@ -124,7 +126,7 @@ func main() {
 
 	// markdownからhtmlを生成する
 	for _, markDownFileName := range markDownFileNames {
-		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, outputDir, os.Getenv("BASE_URL"))
+		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, outputDir, baseURL)
 		eg.Go(task)
 	}
 

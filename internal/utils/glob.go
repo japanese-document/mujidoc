@@ -30,12 +30,13 @@ func createWalkDirFunc(paths *[]string, suffix string) (func(string, fs.DirEntry
 	return walkDirFunc, nil
 }
 
-// GetMarkDownFileNames searches for files with a specified suffix within a root directory and returns their paths.
-// It utilizes createWalkDirFunc to generate a function that filters and collects file paths during a directory walk.
-// An error is returned if any issues arise during the creation of the walk function or the directory walk itself.
-func GetMarkDownFileNames(root, suffix string) ([]string, error) {
+// GetMarkDownFileNames searches the specified root directory and all of its subdirectories
+// for files with the ".md" extension and returns a slice containing the paths of all markdown files found.
+// Parameters:
+// - root: The root directory from which the search will begin.
+func GetMarkDownFileNames(root string) ([]string, error) {
 	paths := []string{}
-	walkDirFunc, err := createWalkDirFunc(&paths, suffix)
+	walkDirFunc, err := createWalkDirFunc(&paths, ".md")
 	if err != nil {
 		return paths, err
 	}

@@ -59,10 +59,9 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 	}
 }
 
-func createCopyImageDirTask() func() error {
+func createCopyImageDirTask(sourceDir, outputDir string) func() error {
 	return func() error {
-		srcImageDir := filepath.Join(os.Getenv("SOURCE_DIR"), utils.IMAGE_DIR)
-		outputDir := os.Getenv("OUTPUT_DIR")
+		srcImageDir := filepath.Join(outputDir, utils.IMAGE_DIR)
 		if utils.IsDirExists(srcImageDir) {
 			return utils.CopyDir(srcImageDir, outputDir)
 		}
@@ -86,6 +85,7 @@ func createIndexHtmlFileTask(layout string, outputDir string, indexItems []utils
 }
 
 func main() {
+	sourceDir := os.Getenv("SOURCE_DIR")
 	outputDir := os.Getenv("OUTPUT_DIR")
 	err := os.RemoveAll(outputDir)
 	if err != nil {
@@ -95,7 +95,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}
-	markDownFileNames, err := utils.GetMarkDownFileNames(os.Getenv("SOURCE_DIR"), ".md")
+	markDownFileNames, err := utils.GetMarkDownFileNames(sourceDir)
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}
@@ -124,22 +124,22 @@ func main() {
 
 	// markdownからhtmlを生成する
 	for _, markDownFileName := range markDownFileNames {
-		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, os.Getenv("SOURCE_DIR"), os.Getenv("OUTPUT_DIR"), os.Getenv("BASE_URL"))
+		task := createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, outputDir, os.Getenv("BASE_URL"))
 		eg.Go(task)
 	}
 
 	// 画像をコピーする
-	task := createCopyImageDirTask()
+	task := createCopyImageDirTask(sourceDir, outputDir)
 	eg.Go(task)
 
 	// index.htmlを作成する
 	if os.Getenv("SINGLE_PAGE") != "true" {
-		task = createIndexHtmlFileTask(os.Getenv("INDEX_PAGE_LAYOUT"), os.Getenv("OUTPUT_DIR"), indexItems)
+		task = createIndexHtmlFileTask(os.Getenv("INDEX_PAGE_LAYOUT"), outputDir, indexItems)
 		eg.Go(task)
 	}
 
 	// CSSファイルを作成する
-	task = css.CreateWriteTask(os.Getenv("OUTPUT_DIR"), utils.CSS_FILE_NAME)
+	task = css.CreateWriteTask(outputDir, utils.CSS_FILE_NAME)
 	eg.Go(task)
 
 	if os.Getenv("RSS") == "true" {

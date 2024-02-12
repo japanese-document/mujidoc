@@ -372,3 +372,42 @@ func TestIsHeader(t *testing.T) {
 		})
 	}
 }
+
+func TestIsCode(t *testing.T) {
+	type args struct {
+		line string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "only code",
+			args: args{line: "```"},
+			want: true,
+		},
+		{
+			name: "with language",
+			args: args{line: "```go"},
+			want: true,
+		},
+		{
+			name: "start space",
+			args: args{line: " ```"},
+			want: false,
+		},
+		{
+			name: "others",
+			args: args{line: "foobar"},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IsCode(tt.args.line); got != tt.want {
+				t.Errorf("IsCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

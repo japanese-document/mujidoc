@@ -275,16 +275,6 @@ func CreateIndexMenu(items []IndexItem) string {
 	return menu.String()
 }
 
-// IsHeader determines if a given text line is a markdown header.
-func IsHeader(line string) bool {
-	for i := 2; i <= 5; i++ {
-		if strings.HasPrefix(line, strings.Repeat("#", i-1)+" ") {
-			return true
-		}
-	}
-	return false
-}
-
 // CreatePage generates the HTML for an individual page using the given parameters.
 func CreatePage(layout, md, title, url, cssPath, indexMenu, headerList string) (string, error) {
 	var buf bytes.Buffer
@@ -302,10 +292,33 @@ func CreatePage(layout, md, title, url, cssPath, indexMenu, headerList string) (
 	return html, nil
 }
 
+// IsHeader determines if a given text line is a markdown header.
+func IsHeader(line string) bool {
+	for i := 2; i <= 5; i++ {
+		if strings.HasPrefix(line, strings.Repeat("#", i-1)+" ") {
+			return true
+		}
+	}
+	return false
+}
+
+// IsHeader determines if a given text line is a markdown code.
+func IsCode(line string) bool {
+	return strings.HasPrefix(line, "```")
+}
+
 // CreateHeaderList generates HTML for a header list from markdown text.
 func CreateHeaderList(md string) (string, error) {
 	lines := strings.Split(md, "\n")
+	isInCode := false
 	filtered, err := Filter(lines, func(line string, _ int) (bool, error) {
+		if IsCode(line) {
+			isInCode = !isInCode
+		}
+		// ignore `#` in code tag
+		if isInCode {
+			return false, nil
+		}
 		return IsHeader(line), nil
 	})
 	if err != nil {

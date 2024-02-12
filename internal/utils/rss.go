@@ -87,7 +87,7 @@ func compareFn(p1, p2 *Page) bool {
 	return t1.After(t2) // 降順にソート
 }
 
-func CreateRssFileTask(pages []*Page, tz string) func() error {
+func CreateRssFileTask(pages []*Page, tz, outputDir, baseURL, title, description string) func() error {
 	return func() error {
 		location, err := time.LoadLocation(tz)
 		if err != nil {
@@ -112,9 +112,9 @@ func CreateRssFileTask(pages []*Page, tz string) func() error {
 
 		items := sb.String()
 		pubDate := time.Now().UTC().In(location).Format(time.RFC1123)
-		rss := fmt.Sprintf(RSS_TEMPLATE, os.Getenv("INDEX_PAGE_TITLE"), os.Getenv("INDEX_PAGE_DESCRIPTION"), os.Getenv("BASE_URL"), os.Getenv("BASE_URL"), pubDate, pubDate, items)
+		rss := fmt.Sprintf(RSS_TEMPLATE, title, description, baseURL, baseURL, pubDate, pubDate, items)
 		rss = strings.TrimSpace(rss)
-		rssRSSFileName := filepath.Join(os.Getenv("OUTPUT_DIR"), RSS_FILE_NAME)
+		rssRSSFileName := filepath.Join(outputDir, RSS_FILE_NAME)
 		err = os.WriteFile(rssRSSFileName, []byte(rss), 0644)
 		if err != nil {
 			return errors.WithStack(err)

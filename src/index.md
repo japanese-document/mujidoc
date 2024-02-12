@@ -7,10 +7,12 @@ Mujidoc is a simple static site generator.
 ## Installation
 
 ```bash
-go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6
 ```
 
 ## Usage
+
+You create a configuration file and execute the command.
 
 ### Execute
 
@@ -19,6 +21,8 @@ following command:
 ```
 mujidoc
 ```
+
+Please note that this command first deletes the directory specified in `OUTPUT_DIR`, then creates a new directory at `OUTPUT_DIR`.
 
 ### Content
 
@@ -32,6 +36,14 @@ If `RSS` is `false`, `date` in the following example is unnecessary.
 
 something
 ```
+
+#### category.name
+
+#### category.order
+
+#### order
+
+#### date
 
 ### Configuration file
 

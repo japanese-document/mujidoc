@@ -91,14 +91,13 @@ func CreateTitle(md string) string {
 
 // CreateURL generates a URL from the specified directory and file name.
 // It constructs the URL based on the source directory and base URL obtained from environment variables.
-func CreateURL(dir, name string) string {
-	trimmedDir := strings.TrimPrefix(dir, os.Getenv("SOURCE_DIR"))
+func CreateURL(dir, name, sourceDir, baseURL string) string {
+	trimmedDir := strings.TrimPrefix(dir, sourceDir)
 	trimmedDir = strings.Trim(trimmedDir, "/")
-	trimmedBaseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
 	if trimmedDir == "" {
-		return trimmedBaseURL + "/" + name + ".html"
+		return baseURL + "/" + name + ".html"
 	}
-	return trimmedBaseURL + "/" + trimmedDir + "/" + name + ".html"
+	return baseURL + "/" + trimmedDir + "/" + name + ".html"
 }
 
 // GetDirAndName extracts the directory path and file name (without extension) from a file path.
@@ -111,7 +110,7 @@ func GetDirAndName(path string) (string, string) {
 
 // CreatePageData generates page data from a markdown file name.
 // It parses the file content to extract metadata, title, and URL, and returns a Page struct containing these.
-func CreatePageData(markDownFileName string) (*Page, error) {
+func CreatePageData(markDownFileName, sourceDir, baseURL string) (*Page, error) {
 	content, err := os.ReadFile(markDownFileName)
 	if err != nil {
 		return nil, errors.WithStack(err)
@@ -124,7 +123,7 @@ func CreatePageData(markDownFileName string) (*Page, error) {
 
 	title := CreateTitle(md)
 	dir, name := GetDirAndName(markDownFileName)
-	url := CreateURL(dir, name)
+	url := CreateURL(dir, name, sourceDir, baseURL)
 
 	page := &Page{
 		Meta:  meta,
@@ -357,9 +356,9 @@ func CreateIndexPage(layout string, indexItems []IndexItem) (string, error) {
 }
 
 // createPageTask returns a task that generates page data from a specified markdown file.
-func createPageTask(markDownFileName string, pages []*Page, index int) func() error {
+func createPageTask(markDownFileName string, pages []*Page, sourceDir, baseURL string, index int) func() error {
 	return func() error {
-		page, err := CreatePageData(markDownFileName)
+		page, err := CreatePageData(markDownFileName, sourceDir, baseURL)
 		if err != nil {
 			return err
 		}
@@ -369,12 +368,12 @@ func createPageTask(markDownFileName string, pages []*Page, index int) func() er
 }
 
 // CreatePages asynchronously generates a slice of Page data from multiple markdown files.
-func CreatePages(markDownFileNames []string) ([]*Page, error) {
+func CreatePages(markDownFileNames []string, sourceDir, baseURL string) ([]*Page, error) {
 	var g errgroup.Group
 	pages := make([]*Page, len(markDownFileNames))
 
 	for i, fileName := range markDownFileNames {
-		task := createPageTask(fileName, pages, i)
+		task := createPageTask(fileName, pages, sourceDir, baseURL, i)
 		g.Go(task)
 	}
 

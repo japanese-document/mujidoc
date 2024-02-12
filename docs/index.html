@@ -6,10 +6,10 @@
     <meta name="twitter:card" content="summary" />
     <meta property="og:url" content="https://japanese-document.github.io/mujidoc/index.html" />
     <meta property="og:title" content="Mujidoc" />
-    <meta property="og:description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
+    <meta property="og:description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR" />
     <meta property="og:image" content="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <meta name="theme-color" content="#f1f7fe" />
-    <meta name="description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5UsageExecutefollowing command:mujidocContentYou place markdown files with the following metadata in SOURCE_DIR.If RSS is false, date in the following example is unnecessary.{" />
+    <meta name="description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR" />
     <link rel="icon" type="image/png" href="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <title>Mujidoc</title>
     <link rel="stylesheet" href="https://japanese-document.github.io/mujidoc/app.css?v=5909b1d1-6e6f-5bcd-b03d-fa7e680a46a6" type="text/css"  media="all" />
@@ -19,11 +19,13 @@
 </nav></div>
     <main class="main markdown-body">
       <h1 id="Mujidoc"><a href="#Mujidoc" rel="nofollow">Mujidoc</a></h1><p>Mujidoc is a simple static site generator.</p>
-<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2><pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.5
+<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2><pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6
 </code></pre>
-<h2 id="Usage"><a href="#Usage" rel="nofollow">Usage</a></h2><h3 id="Execute"><a href="#Execute" rel="nofollow">Execute</a></h3><p>following command:</p>
+<h2 id="Usage"><a href="#Usage" rel="nofollow">Usage</a></h2><p>You create a configuration file and execute the command.</p>
+<h3 id="Execute"><a href="#Execute" rel="nofollow">Execute</a></h3><p>following command:</p>
 <pre><code>mujidoc
 </code></pre>
+<p>Please note that this command first deletes the directory specified in <code>OUTPUT_DIR</code>, then creates a new directory at <code>OUTPUT_DIR</code>.</p>
 <h3 id="Content"><a href="#Content" rel="nofollow">Content</a></h3><p>You place markdown files with the following metadata in <code>SOURCE_DIR</code>.
 If <code>RSS</code> is <code>false</code>, <code>date</code> in the following example is unnecessary.</p>
 <pre><code>{ &#34;category&#34;: {&#34;name&#34;: &#34;Go&#34;, &#34;order&#34;: 6},  &#34;order&#34;: 7, &#34;date&#34;: &#34;2024-01-03 15:00&#34; }
@@ -32,7 +34,7 @@ If <code>RSS</code> is <code>false</code>, <code>date</code> in the following ex
 
 something
 </code></pre>
-<h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3><p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
+<h4 id="category.name"><a href="#category.name" rel="nofollow">category.name</a></h4><h4 id="category.order"><a href="#category.order" rel="nofollow">category.order</a></h4><h4 id="order"><a href="#order" rel="nofollow">order</a></h4><h4 id="date"><a href="#date" rel="nofollow">date</a></h4><h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3><p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
 <pre><code>BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
 INDEX_PAGE_HEADER=Mujidoc
@@ -86,6 +88,14 @@ TIME_ZONE=&#34;Asia/Tokyo&#34;
 <p class="h3"><a href="#Execute" rel="nofollow">Execute
 </a></p>
 <p class="h3"><a href="#Content" rel="nofollow">Content
+</a></p>
+<p class="h4"><a href="#category.name" rel="nofollow">category.name
+</a></p>
+<p class="h4"><a href="#category.order" rel="nofollow">category.order
+</a></p>
+<p class="h4"><a href="#order" rel="nofollow">order
+</a></p>
+<p class="h4"><a href="#date" rel="nofollow">date
 </a></p>
 <p class="h3"><a href="#Configuration_file" rel="nofollow">Configuration file
 </a></p>

@@ -62,7 +62,7 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 
 func createCopyImageDirTask(sourceDir, outputDir string) func() error {
 	return func() error {
-		srcImageDir := filepath.Join(outputDir, utils.IMAGE_DIR)
+		srcImageDir := filepath.Join(sourceDir, utils.IMAGE_DIR)
 		if utils.IsDirExists(srcImageDir) {
 			return utils.CopyDir(srcImageDir, outputDir)
 		}
@@ -70,13 +70,14 @@ func createCopyImageDirTask(sourceDir, outputDir string) func() error {
 	}
 }
 
-func createIndexHtmlFileTask(layout string, outputDir string, indexItems []utils.IndexItem) func() error {
+func createIndexHtmlFileTask(layout, outputDir, baseURL, header, title, description, cssPath string, indexItems []utils.IndexItem) func() error {
 	return func() error {
 		indexPageLayout, err := os.ReadFile(layout)
 		if err != nil {
 			return errors.WithStack(err)
 		}
-		indexPage, err := utils.CreateIndexPage(string(indexPageLayout), indexItems)
+		indexPage, err := utils.CreateIndexPage(
+			string(indexPageLayout), baseURL, header, title, description, cssPath, indexItems)
 		if err != nil {
 			return err
 		}
@@ -136,7 +137,8 @@ func main() {
 
 	// index.htmlを作成する
 	if os.Getenv("SINGLE_PAGE") != "true" {
-		task = createIndexHtmlFileTask(os.Getenv("INDEX_PAGE_LAYOUT"), outputDir, indexItems)
+		task = createIndexHtmlFileTask(os.Getenv("INDEX_PAGE_LAYOUT"), outputDir, baseURL, os.Getenv("INDEX_PAGE_HEADER"),
+			os.Getenv("INDEX_PAGE_TITLE"), os.Getenv("INDEX_PAGE_DESCRIPTION"), os.Getenv("CSS_PATH"), indexItems)
 		eg.Go(task)
 	}
 

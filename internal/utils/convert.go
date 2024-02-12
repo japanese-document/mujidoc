@@ -334,11 +334,11 @@ func CreateHeaderList(md string) (string, error) {
 }
 
 // CreateIndexPage generates the HTML for an index page from index items.
-func CreateIndexPage(layout string, indexItems []IndexItem) (string, error) {
+func CreateIndexPage(layout, baseURL, header, title, description, cssPath string, indexItems []IndexItem) (string, error) {
 	var builder strings.Builder
 
 	// ヘッダーを追加
-	builder.WriteString("# " + os.Getenv("INDEX_PAGE_HEADER") + "\n")
+	builder.WriteString("# " + header + "\n")
 
 	// 各IndexItemに対して処理
 	for _, item := range indexItems {
@@ -352,7 +352,7 @@ func CreateIndexPage(layout string, indexItems []IndexItem) (string, error) {
 	if err := markdown.Convert([]byte(builder.String()), &body); err != nil {
 		return "", errors.WithStack(err)
 	}
-	return CreateHTML(layout, os.Getenv("INDEX_PAGE_TITLE"), body.String(), os.Getenv("INDEX_PAGE_DESCRIPTION"), os.Getenv("BASE_URL"), os.Getenv("CSS_PATH"), "", ""), nil
+	return CreateHTML(layout, title, body.String(), description, baseURL, cssPath, "", ""), nil
 }
 
 // createPageTask returns a task that generates page data from a specified markdown file.

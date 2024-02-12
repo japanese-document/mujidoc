@@ -147,7 +147,8 @@ func main() {
 	eg.Go(task)
 
 	if os.Getenv("RSS") == "true" {
-		task := utils.CreateRssFileTask(pages, os.Getenv("TIME_ZONE"))
+		task := utils.CreateRssFileTask(pages, os.Getenv("TIME_ZONE"), outputDir, baseURL, os.Getenv("INDEX_PAGE_TITLE"),
+			os.Getenv("INDEX_PAGE_DESCRIPTION"))
 		eg.Go(task)
 	}
 

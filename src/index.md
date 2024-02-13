@@ -30,7 +30,7 @@ You place markdown files with the following metadata in `SOURCE_DIR`.
 If `RSS` is `false`, `date` in the following example is unnecessary.
 
 ```
-{ "category": {"name": "Go", "order": 6},  "order": 7, "date": "2024-01-03 15:00" }
+{ "category": {"name": "Go", "order": 6},  "order": 0, "date": "2024-01-03 15:00" }
 ---
 # Title 
 
@@ -39,11 +39,20 @@ something
 
 #### category.name
 
+This is the name of the category to which the page belongs.
+
 #### category.order
+
+This specifies the order in which categories are displayed.
+Assign the same number to identical category names.
 
 #### order
 
+This specifies the position at which the page is displayed within the category.
+
 #### date
+
+This is the value for the pubDate in the RSS feed.
 
 ### Configuration file
 

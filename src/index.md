@@ -72,6 +72,28 @@ RSS=true
 TIME_ZONE="Asia/Tokyo"
 ```
 
+#### BASE_URL
+
+#### PAGE_LAYOUT
+
+#### INDEX_PAGE_HEADER
+
+#### INDEX_PAGE_TITLE
+
+#### INDEX_PAGE_DESCRIPTION
+
+#### INDEX_PAGE_LAYOUT
+
+#### OUTPUT_DIR
+
+#### SOURCE_DIR
+
+#### SINGLE_PAGE
+
+#### RSS
+
+#### TIME_ZONE
+
 ### Images
 
 When providing image files, you need to place the image files in the `SOURCE_DIR/images` directory. The image files move to `OUTPUT_DIR`. `SOURCE_DIR` is configured in the configuration file.

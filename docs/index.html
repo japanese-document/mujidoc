@@ -38,7 +38,7 @@ something
 <h4 id="category.order"><a href="#category.order" rel="nofollow">category.order</a></h4><p>This specifies the order in which categories are displayed.
 Assign the same number to identical category names.</p>
 <h4 id="order"><a href="#order" rel="nofollow">order</a></h4><p>This specifies the position at which the page is displayed within the category.</p>
-<h4 id="date"><a href="#date" rel="nofollow">date</a></h4><p>This is the value for the pubDate in the RSS feed.</p>
+<h4 id="date"><a href="#date" rel="nofollow">date</a></h4><p>This is the value for <code>pubDate</code> in the RSS feed.</p>
 <h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3><p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
 <pre><code>BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
@@ -52,6 +52,17 @@ SINGLE_PAGE=false
 RSS=true
 TIME_ZONE=&#34;Asia/Tokyo&#34;
 </code></pre>
+<h4 id="BASE_URL"><a href="#BASE_URL" rel="nofollow">BASE_URL</a></h4><p>This is the base URL of the generated site.</p>
+<h4 id="PAGE_LAYOUT"><a href="#PAGE_LAYOUT" rel="nofollow">PAGE_LAYOUT</a></h4><p>This specifies the layout for the generated HTML.</p>
+<h4 id="INDEX_PAGE_HEADER"><a href="#INDEX_PAGE_HEADER" rel="nofollow">INDEX_PAGE_HEADER</a></h4><p>This is the value of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_TITLE"><a href="#INDEX_PAGE_TITLE" rel="nofollow">INDEX_PAGE_TITLE</a></h4><p>This is the title of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_DESCRIPTION"><a href="#INDEX_PAGE_DESCRIPTION" rel="nofollow">INDEX_PAGE_DESCRIPTION</a></h4><p>This is the description of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_LAYOUT"><a href="#INDEX_PAGE_LAYOUT" rel="nofollow">INDEX_PAGE_LAYOUT</a></h4><p>This specifies the layout for <code>index.html</code>.</p>
+<h4 id="OUTPUT_DIR"><a href="#OUTPUT_DIR" rel="nofollow">OUTPUT_DIR</a></h4><p>This is the directory where the generated HTML is output.</p>
+<h4 id="SOURCE_DIR"><a href="#SOURCE_DIR" rel="nofollow">SOURCE_DIR</a></h4><p>This is the directory where markdown files are placed.</p>
+<h4 id="SINGLE_PAGE"><a href="#SINGLE_PAGE" rel="nofollow">SINGLE_PAGE</a></h4><p>If you want a single page, specify <code>true</code> for this option.</p>
+<h4 id="RSS"><a href="#RSS" rel="nofollow">RSS</a></h4><p>If you want to generate an RSS feed, specify <code>true</code> for this option.</p>
+<h4 id="TIME_ZONE"><a href="#TIME_ZONE" rel="nofollow">TIME_ZONE</a></h4><p>This specifies the timezone to be used for the RSS feed.</p>
 <h3 id="Images"><a href="#Images" rel="nofollow">Images</a></h3><p>When providing image files, you need to place the image files in the <code>SOURCE_DIR/images</code> directory. The image files move to <code>OUTPUT_DIR</code>. <code>SOURCE_DIR</code> is configured in the configuration file.</p>
 <h3 id="Page_layout"><a href="#Page_layout" rel="nofollow">Page layout</a></h3><p>Page layout files (<code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code>) must be placed as below. Their names are configured by <code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code> in the configuration file.</p>
 <pre><code>&lt;!DOCTYPE html&gt;
@@ -103,6 +114,28 @@ TIME_ZONE=&#34;Asia/Tokyo&#34;
 <p class="h4"><a href="#date" rel="nofollow">date
 </a></p>
 <p class="h3"><a href="#Configuration_file" rel="nofollow">Configuration file
+</a></p>
+<p class="h4"><a href="#BASE_URL" rel="nofollow">BASE_URL
+</a></p>
+<p class="h4"><a href="#PAGE_LAYOUT" rel="nofollow">PAGE_LAYOUT
+</a></p>
+<p class="h4"><a href="#INDEX_PAGE_HEADER" rel="nofollow">INDEX_PAGE_HEADER
+</a></p>
+<p class="h4"><a href="#INDEX_PAGE_TITLE" rel="nofollow">INDEX_PAGE_TITLE
+</a></p>
+<p class="h4"><a href="#INDEX_PAGE_DESCRIPTION" rel="nofollow">INDEX_PAGE_DESCRIPTION
+</a></p>
+<p class="h4"><a href="#INDEX_PAGE_LAYOUT" rel="nofollow">INDEX_PAGE_LAYOUT
+</a></p>
+<p class="h4"><a href="#OUTPUT_DIR" rel="nofollow">OUTPUT_DIR
+</a></p>
+<p class="h4"><a href="#SOURCE_DIR" rel="nofollow">SOURCE_DIR
+</a></p>
+<p class="h4"><a href="#SINGLE_PAGE" rel="nofollow">SINGLE_PAGE
+</a></p>
+<p class="h4"><a href="#RSS" rel="nofollow">RSS
+</a></p>
+<p class="h4"><a href="#TIME_ZONE" rel="nofollow">TIME_ZONE
 </a></p>
 <p class="h3"><a href="#Images" rel="nofollow">Images
 </a></p>

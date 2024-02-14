@@ -52,7 +52,7 @@ This specifies the position at which the page is displayed within the category.
 
 #### date
 
-This is the value for the pubDate in the RSS feed.
+This is the value for `pubDate` in the RSS feed.
 
 ### Configuration file
 
@@ -74,25 +74,47 @@ TIME_ZONE="Asia/Tokyo"
 
 #### BASE_URL
 
+This is the base URL of the generated site.
+
 #### PAGE_LAYOUT
+
+This specifies the layout for the generated HTML.
 
 #### INDEX_PAGE_HEADER
 
+This is the value of the h1 element for `index.html`.
+
 #### INDEX_PAGE_TITLE
+
+This is the title of the h1 element for `index.html`.
 
 #### INDEX_PAGE_DESCRIPTION
 
+This is the description of the h1 element for `index.html`.
+
 #### INDEX_PAGE_LAYOUT
+
+This specifies the layout for `index.html`.
 
 #### OUTPUT_DIR
 
+This is the directory where the generated HTML is output.
+
 #### SOURCE_DIR
+
+This is the directory where markdown files are placed.
 
 #### SINGLE_PAGE
 
+If you want a single page, specify `true` for this option.
+
 #### RSS
 
+If you want to generate an RSS feed, specify `true` for this option.
+
 #### TIME_ZONE
+
+This specifies the timezone to be used for the RSS feed.
 
 ### Images
 

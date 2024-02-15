@@ -170,6 +170,11 @@ func CreateDescription(htmlStr string) (string, error) {
 		return "", err
 	}
 
+	start := strings.Index(text, "\n")
+	if start != -1 {
+		text = text[start:]
+	}
+
 	result := strings.ReplaceAll(text, "\n", "")
 	result = strings.ReplaceAll(result, "\"", "&quot;")
 	if len(result) > 300 {

@@ -161,22 +161,22 @@ func TestCreateDescription(t *testing.T) {
 	}{
 		{
 			name: "Simple text",
-			args: args{htmlStr: "<p>Hello World</p>"},
+			args: args{htmlStr: "1\n<p>Hello World</p>"},
 			want: "Hello World",
 		},
 		{
 			name: "Text with line breaks",
-			args: args{htmlStr: "<p>Hello\nWorld</p>"},
+			args: args{htmlStr: "1\n<p>Hello\nWorld</p>"},
 			want: "HelloWorld",
 		},
 		{
 			name: "Text with double quotes",
-			args: args{htmlStr: `<p>Hello "World"</p>`},
+			args: args{htmlStr: "1\n<p>Hello \"World\"</p>"},
 			want: `Hello &quot;World&quot;`,
 		},
 		{
 			name: "Complex HTML",
-			args: args{htmlStr: "<div><p>Hello</p><p>World</p></div>"},
+			args: args{htmlStr: "1\n<div><p>Hello</p><p>World</p></div>"},
 			want: "HelloWorld",
 		},
 		{
@@ -186,12 +186,12 @@ func TestCreateDescription(t *testing.T) {
 		},
 		{
 			name: "Text exceeding 300 characters",
-			args: args{htmlStr: "<p>" + strings.Repeat("a", 500) + "</p>"},
+			args: args{htmlStr: "1\n<p>" + strings.Repeat("a", 500) + "</p>"},
 			want: strings.Repeat("a", 300),
 		},
 		{
 			name: "Invalid HTML",
-			args: args{htmlStr: "<p>Hello World"},
+			args: args{htmlStr: "1\n<p>Hello World"},
 			want: "Hello World",
 		},
 	}

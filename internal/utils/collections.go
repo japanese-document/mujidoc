@@ -25,14 +25,14 @@ func Filter[T any](items []T, callbackFn func(item T, index int) (bool, error)) 
 // The callback function receives an item and its index as arguments and returns a new value and an error.
 // If the callback function returns an error, the mapping process stops and the error is returned.
 func Map[T any, R any](items []T, callbackFn func(item T, index int) (R, error)) ([]R, error) {
-	rv := []R{}
+	rv := make([]R, len(items))
 
 	for i, item := range items {
 		result, err := callbackFn(item, i)
 		if err != nil {
 			return nil, err
 		}
-		rv = append(rv, result)
+		rv[i] = result
 	}
 
 	return rv, nil

@@ -52,7 +52,7 @@ func (r customRenderer) renderHeading(w util.BufWriter, source []byte, node ast.
 			return 0, err
 		}
 	} else {
-		endTag := fmt.Sprintf(`</a></h%d>`, heading.Level)
+		endTag := fmt.Sprintf("</a></h%d>\n", heading.Level)
 		_, err := w.WriteString(endTag)
 		if err != nil {
 			return 0, err

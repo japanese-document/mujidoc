@@ -194,6 +194,11 @@ func TestCreateDescription(t *testing.T) {
 			args: args{htmlStr: "1\n<p>Hello World"},
 			want: "Hello World",
 		},
+		{
+			name: "1 line",
+			args: args{htmlStr: "foo"},
+			want: "foo",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

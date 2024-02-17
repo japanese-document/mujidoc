@@ -114,8 +114,8 @@ func CreateRssFileTask(pages []*Page, tz, outputDir, baseURL, title, description
 		pubDate := time.Now().UTC().In(location).Format(time.RFC1123)
 		rss := fmt.Sprintf(RSS_TEMPLATE, title, description, baseURL, baseURL, pubDate, pubDate, items)
 		rss = strings.TrimSpace(rss)
-		rssRSSFileName := filepath.Join(outputDir, RSS_FILE_NAME)
-		err = os.WriteFile(rssRSSFileName, []byte(rss), 0644)
+		rssFileName := filepath.Join(outputDir, RSS_FILE_NAME)
+		err = os.WriteFile(rssFileName, []byte(rss), 0644)
 		if err != nil {
 			return errors.WithStack(err)
 		}

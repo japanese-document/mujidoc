@@ -109,6 +109,7 @@ If you want a single page, specify `true` for this option.
 #### RSS
 
 If you want to generate an RSS feed, specify `true` for this option.
+The generated RSS feed file name is `rss.xml`.
 
 #### TIME_ZONE
 
@@ -116,7 +117,8 @@ This specifies the timezone to be used for the RSS feed.
 
 ### Images
 
-When providing image files, you need to place the image files in the `SOURCE_DIR/images` directory. The image files move to `OUTPUT_DIR`. `SOURCE_DIR` is configured in the configuration file.
+When providing image files, you need to place the image files in the `SOURCE_DIR/images` directory.
+The image files move to `OUTPUT_DIR/images`.
 
 ### Page layout
 

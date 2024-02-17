@@ -6,10 +6,10 @@
     <meta name="twitter:card" content="summary" />
     <meta property="og:url" content="https://japanese-document.github.io/mujidoc/index.html" />
     <meta property="og:title" content="Mujidoc" />
-    <meta property="og:description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR" />
+    <meta property="og:description" content="Mujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR, then " />
     <meta property="og:image" content="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <meta name="theme-color" content="#f1f7fe" />
-    <meta name="description" content="MujidocMujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR" />
+    <meta name="description" content="Mujidoc is a simple static site generator.Installationgo install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6UsageYou create a configuration file and execute the command.Executefollowing command:mujidocPlease note that this command first deletes the directory specified in OUTPUT_DIR, then " />
     <link rel="icon" type="image/png" href="https://japanese-document.github.io/mujidoc/images/favicon.png" />
     <title>Mujidoc</title>
     <link rel="stylesheet" href="https://japanese-document.github.io/mujidoc/app.css?v=5909b1d1-6e6f-5bcd-b03d-fa7e680a46a6" type="text/css"  media="all" />
@@ -18,15 +18,20 @@
     <div class="left-side"><nav class="index-menu">
 </nav></div>
     <main class="main markdown-body">
-      <h1 id="Mujidoc"><a href="#Mujidoc" rel="nofollow">Mujidoc</a></h1><p>Mujidoc is a simple static site generator.</p>
-<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2><pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6
+      <h1 id="Mujidoc"><a href="#Mujidoc" rel="nofollow">Mujidoc</a></h1>
+<p>Mujidoc is a simple static site generator.</p>
+<h2 id="Installation"><a href="#Installation" rel="nofollow">Installation</a></h2>
+<pre><code>go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6
 </code></pre>
-<h2 id="Usage"><a href="#Usage" rel="nofollow">Usage</a></h2><p>You create a configuration file and execute the command.</p>
-<h3 id="Execute"><a href="#Execute" rel="nofollow">Execute</a></h3><p>following command:</p>
+<h2 id="Usage"><a href="#Usage" rel="nofollow">Usage</a></h2>
+<p>You create a configuration file and execute the command.</p>
+<h3 id="Execute"><a href="#Execute" rel="nofollow">Execute</a></h3>
+<p>following command:</p>
 <pre><code>mujidoc
 </code></pre>
 <p>Please note that this command first deletes the directory specified in <code>OUTPUT_DIR</code>, then creates a new directory at <code>OUTPUT_DIR</code>.</p>
-<h3 id="Content"><a href="#Content" rel="nofollow">Content</a></h3><p>You place markdown files with the following metadata in <code>SOURCE_DIR</code>.
+<h3 id="Content"><a href="#Content" rel="nofollow">Content</a></h3>
+<p>You place markdown files with the following metadata in <code>SOURCE_DIR</code>.
 If <code>RSS</code> is <code>false</code>, <code>date</code> in the following example is unnecessary.</p>
 <pre><code>{ &#34;category&#34;: {&#34;name&#34;: &#34;Go&#34;, &#34;order&#34;: 6},  &#34;order&#34;: 0, &#34;date&#34;: &#34;2024-01-03 15:00&#34; }
 ---
@@ -34,12 +39,17 @@ If <code>RSS</code> is <code>false</code>, <code>date</code> in the following ex
 
 something
 </code></pre>
-<h4 id="category.name"><a href="#category.name" rel="nofollow">category.name</a></h4><p>This is the name of the category to which the page belongs.</p>
-<h4 id="category.order"><a href="#category.order" rel="nofollow">category.order</a></h4><p>This specifies the order in which categories are displayed.
+<h4 id="category.name"><a href="#category.name" rel="nofollow">category.name</a></h4>
+<p>This is the name of the category to which the page belongs.</p>
+<h4 id="category.order"><a href="#category.order" rel="nofollow">category.order</a></h4>
+<p>This specifies the order in which categories are displayed.
 Assign the same number to identical category names.</p>
-<h4 id="order"><a href="#order" rel="nofollow">order</a></h4><p>This specifies the position at which the page is displayed within the category.</p>
-<h4 id="date"><a href="#date" rel="nofollow">date</a></h4><p>This is the value for <code>pubDate</code> in the RSS feed.</p>
-<h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3><p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
+<h4 id="order"><a href="#order" rel="nofollow">order</a></h4>
+<p>This specifies the position at which the page is displayed within the category.</p>
+<h4 id="date"><a href="#date" rel="nofollow">date</a></h4>
+<p>This is the value for <code>pubDate</code> in the RSS feed.</p>
+<h3 id="Configuration_file"><a href="#Configuration_file" rel="nofollow">Configuration file</a></h3>
+<p>You need to place a configuration file named <code>.env.mujidoc</code> in working directory. Here is an example:</p>
 <pre><code>BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
 INDEX_PAGE_HEADER=Mujidoc
@@ -52,19 +62,32 @@ SINGLE_PAGE=false
 RSS=true
 TIME_ZONE=&#34;Asia/Tokyo&#34;
 </code></pre>
-<h4 id="BASE_URL"><a href="#BASE_URL" rel="nofollow">BASE_URL</a></h4><p>This is the base URL of the generated site.</p>
-<h4 id="PAGE_LAYOUT"><a href="#PAGE_LAYOUT" rel="nofollow">PAGE_LAYOUT</a></h4><p>This specifies the layout for the generated HTML.</p>
-<h4 id="INDEX_PAGE_HEADER"><a href="#INDEX_PAGE_HEADER" rel="nofollow">INDEX_PAGE_HEADER</a></h4><p>This is the value of the h1 element for <code>index.html</code>.</p>
-<h4 id="INDEX_PAGE_TITLE"><a href="#INDEX_PAGE_TITLE" rel="nofollow">INDEX_PAGE_TITLE</a></h4><p>This is the title of the h1 element for <code>index.html</code>.</p>
-<h4 id="INDEX_PAGE_DESCRIPTION"><a href="#INDEX_PAGE_DESCRIPTION" rel="nofollow">INDEX_PAGE_DESCRIPTION</a></h4><p>This is the description of the h1 element for <code>index.html</code>.</p>
-<h4 id="INDEX_PAGE_LAYOUT"><a href="#INDEX_PAGE_LAYOUT" rel="nofollow">INDEX_PAGE_LAYOUT</a></h4><p>This specifies the layout for <code>index.html</code>.</p>
-<h4 id="OUTPUT_DIR"><a href="#OUTPUT_DIR" rel="nofollow">OUTPUT_DIR</a></h4><p>This is the directory where the generated HTML is output.</p>
-<h4 id="SOURCE_DIR"><a href="#SOURCE_DIR" rel="nofollow">SOURCE_DIR</a></h4><p>This is the directory where markdown files are placed.</p>
-<h4 id="SINGLE_PAGE"><a href="#SINGLE_PAGE" rel="nofollow">SINGLE_PAGE</a></h4><p>If you want a single page, specify <code>true</code> for this option.</p>
-<h4 id="RSS"><a href="#RSS" rel="nofollow">RSS</a></h4><p>If you want to generate an RSS feed, specify <code>true</code> for this option.</p>
-<h4 id="TIME_ZONE"><a href="#TIME_ZONE" rel="nofollow">TIME_ZONE</a></h4><p>This specifies the timezone to be used for the RSS feed.</p>
-<h3 id="Images"><a href="#Images" rel="nofollow">Images</a></h3><p>When providing image files, you need to place the image files in the <code>SOURCE_DIR/images</code> directory. The image files move to <code>OUTPUT_DIR</code>. <code>SOURCE_DIR</code> is configured in the configuration file.</p>
-<h3 id="Page_layout"><a href="#Page_layout" rel="nofollow">Page layout</a></h3><p>Page layout files (<code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code>) must be placed as below. Their names are configured by <code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code> in the configuration file.</p>
+<h4 id="BASE_URL"><a href="#BASE_URL" rel="nofollow">BASE_URL</a></h4>
+<p>This is the base URL of the generated site.</p>
+<h4 id="PAGE_LAYOUT"><a href="#PAGE_LAYOUT" rel="nofollow">PAGE_LAYOUT</a></h4>
+<p>This specifies the layout for the generated HTML.</p>
+<h4 id="INDEX_PAGE_HEADER"><a href="#INDEX_PAGE_HEADER" rel="nofollow">INDEX_PAGE_HEADER</a></h4>
+<p>This is the value of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_TITLE"><a href="#INDEX_PAGE_TITLE" rel="nofollow">INDEX_PAGE_TITLE</a></h4>
+<p>This is the title of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_DESCRIPTION"><a href="#INDEX_PAGE_DESCRIPTION" rel="nofollow">INDEX_PAGE_DESCRIPTION</a></h4>
+<p>This is the description of the h1 element for <code>index.html</code>.</p>
+<h4 id="INDEX_PAGE_LAYOUT"><a href="#INDEX_PAGE_LAYOUT" rel="nofollow">INDEX_PAGE_LAYOUT</a></h4>
+<p>This specifies the layout for <code>index.html</code>.</p>
+<h4 id="OUTPUT_DIR"><a href="#OUTPUT_DIR" rel="nofollow">OUTPUT_DIR</a></h4>
+<p>This is the directory where the generated HTML is output.</p>
+<h4 id="SOURCE_DIR"><a href="#SOURCE_DIR" rel="nofollow">SOURCE_DIR</a></h4>
+<p>This is the directory where markdown files are placed.</p>
+<h4 id="SINGLE_PAGE"><a href="#SINGLE_PAGE" rel="nofollow">SINGLE_PAGE</a></h4>
+<p>If you want a single page, specify <code>true</code> for this option.</p>
+<h4 id="RSS"><a href="#RSS" rel="nofollow">RSS</a></h4>
+<p>If you want to generate an RSS feed, specify <code>true</code> for this option.</p>
+<h4 id="TIME_ZONE"><a href="#TIME_ZONE" rel="nofollow">TIME_ZONE</a></h4>
+<p>This specifies the timezone to be used for the RSS feed.</p>
+<h3 id="Images"><a href="#Images" rel="nofollow">Images</a></h3>
+<p>When providing image files, you need to place the image files in the <code>SOURCE_DIR/images</code> directory. The image files move to <code>OUTPUT_DIR</code>. <code>SOURCE_DIR</code> is configured in the configuration file.</p>
+<h3 id="Page_layout"><a href="#Page_layout" rel="nofollow">Page layout</a></h3>
+<p>Page layout files (<code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code>) must be placed as below. Their names are configured by <code>PAGE_LAYOUT</code> and <code>INDEX_PAGE_LAYOUT</code> in the configuration file.</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&#34;en&#34;&gt;
   &lt;head&gt;

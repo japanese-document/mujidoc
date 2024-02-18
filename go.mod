@@ -1,6 +1,6 @@
 module github.com/japanese-document/mujidoc
 
-go 1.21.5
+go 1.22
 
 require (
 	github.com/joho/godotenv v1.5.1
@@ -12,7 +12,7 @@ require (
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/google/uuid v1.6.0
-	github.com/gorilla/css v1.0.0 // indirect
+	github.com/gorilla/css v1.0.1 // indirect
 	github.com/yuin/goldmark v1.7.0
-	golang.org/x/net v0.17.0
+	golang.org/x/net v0.21.0
 )

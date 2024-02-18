@@ -5,7 +5,7 @@ Mujidoc is a simple static site generator.
 ## Installation
 
 ```bash
-go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.6
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.7
 ```
 
 ## Usage
@@ -109,7 +109,7 @@ If you want a single page, specify `true` for this option.
 #### RSS
 
 If you want to generate an RSS feed, specify `true` for this option.
-The generated RSS feed file name is `rss.xml`.
+The generated RSS feed file name is `rss.xml` in `OUTPUT_DIR`.
 
 #### TIME_ZONE
 

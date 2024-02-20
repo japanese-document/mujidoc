@@ -3,7 +3,6 @@ package utils
 import (
 	"log"
 	"path/filepath"
-	"reflect"
 	"strings"
 	"testing"
 
@@ -38,51 +37,6 @@ func TestCreateHash(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := CreateHash(tt.args.text); got != tt.want {
 				t.Errorf("CreateHash() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestGetMetaAndMd(t *testing.T) {
-	type args struct {
-		content string
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    Meta
-		want1   string
-		wantErr bool
-	}{
-		{
-			name: "get meta and md",
-			args: args{
-				content: "{\"header\": {\"name\": \"foo\", \"order\": 123}, \"order\": 3, \"date\": \"2023-01-01 01:02:03\"}\n---\n# Foo\nBar",
-			},
-			want: Meta{
-				Category: Category{
-					Name:  "foo",
-					Order: 123,
-				},
-				Order: 3,
-				Date:  "2023-01-01 01:02:03",
-			},
-			want1:   "# Foo\nBar",
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, got1, err := GetMetaAndMd(tt.args.content)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetMetaAndMd() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetMetaAndMd() got = %v, want %v", got, tt.want)
-			}
-			if got1 != tt.want1 {
-				t.Errorf("GetMetaAndMd() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
 	}

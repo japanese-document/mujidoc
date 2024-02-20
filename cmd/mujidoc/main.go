@@ -28,7 +28,7 @@ func createPageHtmlFileTask(markDownFileName, indexMenu, pageLayout, sourceDir, 
 		if err != nil {
 			return errors.WithStack(err)
 		}
-		_, md, err := utils.GetMetaAndMd(string(content))
+		md, err := utils.GetMd(string(content))
 		if err != nil {
 			return err
 		}
@@ -105,7 +105,7 @@ func main() {
 
 	pages := []*utils.Page{}
 	if os.Getenv("SINGLE_PAGE") != "true" {
-		pages, err = utils.CreatePages(markDownFileNames, sourceDir, baseURL)
+		pages, err = utils.CreatePages(markDownFileNames, sourceDir, baseURL, os.Getenv("CATEGORIES"))
 		if err != nil {
 			log.Fatalf("%+v", err)
 		}

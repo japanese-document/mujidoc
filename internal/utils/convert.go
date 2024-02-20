@@ -16,6 +16,12 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+type PageMeta struct {
+	Category string `json:"category,omitempty"`
+	Order    int    `json:"order,omitempty"`
+	Date     string `json:"date,omitempty"`
+}
+
 type Category struct {
 	Name  string `json:"name,omitempty"`
 	Order int    `json:"order,omitempty"`
@@ -62,20 +68,37 @@ func CreateHash(text string) string {
 
 // GetMetaAndMd extracts metadata and markdown text from the content of a markdown file.
 // The content is split by "---", where the first part is interpreted as JSON format metadata, and the second part as markdown text.
-func GetMetaAndMd(content string) (Meta, string, error) {
+func GetMetaAndMd(content string, categoryOrders map[string]int) (*Meta, string, error) {
 	parts := SEPARATOR.Split(content, 2)
 	if len(parts) != 2 {
-		return Meta{}, "", errors.WithStack(errors.New("invalid content format"))
+		return nil, "", errors.WithStack(errors.New("invalid content format"))
 	}
 
-	var meta Meta
-	err := json.Unmarshal([]byte(parts[0]), &meta)
+	pm := PageMeta{}
+	err := json.Unmarshal([]byte(parts[0]), &pm)
 	if err != nil {
-		return Meta{}, "", errors.WithStack(err)
+		return nil, "", errors.WithStack(err)
 	}
 
+	meta := &Meta{
+		Category: Category{
+			Name:  pm.Category,
+			Order: categoryOrders[pm.Category],
+		},
+		Order: pm.Order,
+		Date:  pm.Date,
+	}
 	md := strings.TrimSpace(parts[1])
 	return meta, md, nil
+}
+
+func GetMd(content string) (string, error) {
+	parts := SEPARATOR.Split(content, 2)
+	if len(parts) != 2 {
+		return "", errors.WithStack(errors.New("invalid content format"))
+	}
+	md := strings.TrimSpace(parts[1])
+	return md, nil
 }
 
 // CreateTitle generates a title from the markdown text.
@@ -110,13 +133,13 @@ func GetDirAndName(path string) (string, string) {
 
 // CreatePageData generates page data from a markdown file name.
 // It parses the file content to extract metadata, title, and URL, and returns a Page struct containing these.
-func CreatePageData(markDownFileName, sourceDir, baseURL string) (*Page, error) {
+func CreatePageData(markDownFileName, sourceDir, baseURL string, categoryOrders map[string]int) (*Page, error) {
 	content, err := os.ReadFile(markDownFileName)
 	if err != nil {
 		return nil, errors.WithStack(err)
 	}
 
-	meta, md, err := GetMetaAndMd(string(content))
+	meta, md, err := GetMetaAndMd(string(content), categoryOrders)
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +149,7 @@ func CreatePageData(markDownFileName, sourceDir, baseURL string) (*Page, error) 
 	url := CreateURL(dir, name, sourceDir, baseURL)
 
 	page := &Page{
-		Meta:  meta,
+		Meta:  *meta,
 		Title: title,
 		URL:   url,
 	}
@@ -374,9 +397,9 @@ func CreateIndexPage(layout, baseURL, header, title, description, cssPath string
 }
 
 // createPageTask returns a task that generates page data from a specified markdown file.
-func createPageTask(markDownFileName string, pages []*Page, sourceDir, baseURL string, index int) func() error {
+func createPageTask(markDownFileName string, pages []*Page, sourceDir, baseURL string, categoryOrders map[string]int, index int) func() error {
 	return func() error {
-		page, err := CreatePageData(markDownFileName, sourceDir, baseURL)
+		page, err := CreatePageData(markDownFileName, sourceDir, baseURL, categoryOrders)
 		if err != nil {
 			return err
 		}
@@ -385,13 +408,23 @@ func createPageTask(markDownFileName string, pages []*Page, sourceDir, baseURL s
 	}
 }
 
+func CreateCategoryOrders(categories string) map[string]int {
+	cs := strings.Split(categories, ",")
+	co := map[string]int{}
+	for i, v := range cs {
+		co[v] = i
+	}
+	return co
+}
+
 // CreatePages asynchronously generates a slice of Page data from multiple markdown files.
-func CreatePages(markDownFileNames []string, sourceDir, baseURL string) ([]*Page, error) {
+func CreatePages(markDownFileNames []string, sourceDir, baseURL, categories string) ([]*Page, error) {
 	var g errgroup.Group
 	pages := make([]*Page, len(markDownFileNames))
+	categoryOrders := CreateCategoryOrders(categories)
 
 	for i, fileName := range markDownFileNames {
-		task := createPageTask(fileName, pages, sourceDir, baseURL, i)
+		task := createPageTask(fileName, pages, sourceDir, baseURL, categoryOrders, i)
 		g.Go(task)
 	}
 

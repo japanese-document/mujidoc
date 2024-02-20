@@ -25,38 +25,36 @@ Please note that this command first deletes the directory specified in `OUTPUT_D
 ### Content
 
 You place markdown files with the following metadata in `SOURCE_DIR`.
-If `RSS` is `false`, `date` in the following example is unnecessary.
 
 ```
-{ "category": {"name": "Go", "order": 6},  "order": 0, "date": "2024-01-03 15:00" }
+{ "category": "Go",  "order": 0, "date": "2024-01-03 15:00" }
 ---
 # Title 
 
 something
 ```
 
-#### category.name
+#### category
 
 This is the name of the category to which the page belongs.
-
-#### category.order
-
-This specifies the order in which categories are displayed.
-Assign the same number to identical category names.
+If `SINGLE_PAGE` is `true`, `category` is unnecessary.
 
 #### order
 
 This specifies the position at which the page is displayed within the category.
+If `SINGLE_PAGE` is `true`, `order` is unnecessary.
 
 #### date
 
 This is the value for `pubDate` in the RSS feed.
+If `RSS` is `false`, `date` is unnecessary.
 
 ### Configuration file
 
 You need to place a configuration file named `.env.mujidoc` in working directory. Here is an example:
 
 ```
+CATEGORIES=Go,Python,Ubuntu
 BASE_URL=https://japanese-document.github.io/mujidoc
 PAGE_LAYOUT=src/layout.html
 INDEX_PAGE_HEADER=Mujidoc
@@ -69,6 +67,11 @@ SINGLE_PAGE=false
 RSS=true
 TIME_ZONE="Asia/Tokyo"
 ```
+
+#### CATEGORIES
+
+This specifies categories separated by commas.
+The categories will be displayed in the order specified.
 
 #### BASE_URL
 

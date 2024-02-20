@@ -1,4 +1,4 @@
-{ "category": {"name": "Mujidoc", "order": 0},  "order": 0 }
+{}
 ---
 # Mujidoc
 

@@ -408,11 +408,30 @@ func createPageTask(markDownFileName string, pages []*Page, sourceDir, baseURL s
 	}
 }
 
+// CreateCategoryOrders takes a string of categories separated by commas, trims any trailing comma,
+// and then splits the string into individual categories. It creates and returns a map where each
+// category is a key with its value being the order (index) in which the category appears in the input string.
+// If a category appears more than once, it is only added to the map once, with the index of its first occurrence.
+//
+// Parameters:
+// - categories: A string of categories separated by commas. For example, "apple,orange,banana,apple".
+//
+// Returns:
+//   - A map[string]int where keys are unique categories from the input string and values are the indexes
+//     at which those categories first appear in the input string.
+//
+// Note:
+// This function does not account for spaces around category names. For example, "apple, orange" will
+// treat " orange" (with a leading space) as a distinct category from "orange".
 func CreateCategoryOrders(categories string) map[string]int {
+	categories = strings.TrimSuffix(categories, ",")
 	cs := strings.Split(categories, ",")
 	co := map[string]int{}
 	for i, v := range cs {
-		co[v] = i
+		_, exists := co[v]
+		if !exists && v != "" {
+			co[v] = i
+		}
 	}
 	return co
 }

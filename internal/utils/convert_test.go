@@ -3,6 +3,7 @@ package utils
 import (
 	"log"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -366,6 +367,55 @@ func TestIsCode(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := IsCode(tt.args.line); got != tt.want {
 				t.Errorf("IsCode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestCreateCategoryOrders(t *testing.T) {
+	type args struct {
+		categories string
+	}
+	tests := []struct {
+		name string
+		args args
+		want map[string]int
+	}{
+		{
+			name: "Unique categories",
+			args: args{categories: "apple,orange,banana"},
+			want: map[string]int{"apple": 0, "orange": 1, "banana": 2},
+		},
+		{
+			name: "Duplicate categories",
+			args: args{categories: "apple,orange,banana,apple"},
+			want: map[string]int{"apple": 0, "orange": 1, "banana": 2},
+		},
+		{
+			name: "Trailing comma",
+			args: args{categories: "apple,orange,banana,"},
+			want: map[string]int{"apple": 0, "orange": 1, "banana": 2},
+		},
+		{
+			name: "Leading and internal spaces",
+			args: args{categories: " apple, orange ,banana"},
+			want: map[string]int{" apple": 0, " orange ": 1, "banana": 2}, // Note the space in the keys
+		},
+		{
+			name: "Empty string",
+			args: args{categories: ""},
+			want: map[string]int{},
+		},
+		{
+			name: "Only commas",
+			args: args{categories: ",,,,"},
+			want: map[string]int{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := CreateCategoryOrders(tt.args.categories); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("CreateCategoryOrders() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -37,6 +37,7 @@ something
 #### category
 
 This is the name of the category to which the page belongs.
+This is one of `CATEGORIES`.
 If `SINGLE_PAGE` is `true`, `category` is unnecessary.
 
 #### order

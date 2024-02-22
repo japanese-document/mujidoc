@@ -199,7 +199,7 @@ func CreateDescription(htmlStr string) (string, error) {
 	}
 
 	result := strings.ReplaceAll(text, "\n", "")
-	result = strings.ReplaceAll(result, "\"", "&quot;")
+	result = html.EscapeString(result)
 	if len(result) > 300 {
 		result = result[:300]
 	}

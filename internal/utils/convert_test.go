@@ -126,7 +126,7 @@ func TestCreateDescription(t *testing.T) {
 		{
 			name: "Text with double quotes",
 			args: args{htmlStr: "1\n<p>Hello \"World\"</p>"},
-			want: `Hello &quot;World&quot;`,
+			want: `Hello &#34;World&#34;`,
 		},
 		{
 			name: "Complex HTML",

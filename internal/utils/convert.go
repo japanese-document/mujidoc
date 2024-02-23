@@ -80,10 +80,15 @@ func GetMetaAndMd(content string, categoryOrders map[string]int) (*Meta, string,
 		return nil, "", errors.WithStack(err)
 	}
 
+	categoryOrder, exist := categoryOrders[pm.Category]
+	if !exist {
+		return nil, "", errors.WithStack(errors.Errorf("%s does not exist in CATGEGORIES", pm.Category))
+	}
+
 	meta := &Meta{
 		Category: Category{
 			Name:  pm.Category,
-			Order: categoryOrders[pm.Category],
+			Order: categoryOrder,
 		},
 		Order: pm.Order,
 		Date:  pm.Date,

@@ -62,31 +62,32 @@ func (r customRenderer) renderHeading(w util.BufWriter, source []byte, node ast.
 }
 
 func (r customRenderer) renderImage(w util.BufWriter, source []byte, node ast.Node, entering bool) (ast.WalkStatus, error) {
-	if entering {
-		n := node.(*ast.Image)
-		destination := string(n.Destination)
-		_, err := w.WriteString(`<img src="`)
-		if err != nil {
-			return 0, err
-		}
-		_, err = w.WriteString(destination)
-		if err != nil {
-			return 0, err
-		}
-		_, err = w.WriteString(`" alt="`)
-		if err != nil {
-			return 0, err
-		}
-		_, err = w.WriteString(destination)
-		if err != nil {
-			return 0, err
-		}
-		_, err = w.WriteString(`">`)
-		if err != nil {
-			return 0, err
-		}
+	if !entering {
+		return ast.WalkContinue, nil
 	}
-	return ast.WalkContinue, nil
+	n := node.(*ast.Image)
+	destination := util.EscapeHTML(n.Destination)
+	_, err := w.WriteString(`<img src="`)
+	if err != nil {
+		return 0, err
+	}
+	_, err = w.Write(destination)
+	if err != nil {
+		return 0, err
+	}
+	_, err = w.WriteString(`" alt="`)
+	if err != nil {
+		return 0, err
+	}
+	_, err = w.Write(destination)
+	if err != nil {
+		return 0, err
+	}
+	_, err = w.WriteString(`">`)
+	if err != nil {
+		return 0, err
+	}
+	return ast.WalkSkipChildren, nil
 }
 
 // NewMarkdown initializes a new goldmark.Markdown instance with custom rendering logic.

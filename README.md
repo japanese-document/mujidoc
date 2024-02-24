@@ -5,7 +5,7 @@ Mujidoc is a simple static site generator.
 ## Installation
 
 ```bash
-go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.8
+go install github.com/japanese-document/mujidoc/cmd/mujidoc@0.0.9
 ```
 
 ## Usage

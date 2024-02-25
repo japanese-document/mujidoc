@@ -2,6 +2,10 @@ package utils
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+	"regexp"
+	"strings"
 
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"
@@ -9,6 +13,13 @@ import (
 	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/util"
 )
+
+var parentPathRe = regexp.MustCompile(`^(\.\./)+`)
+
+func isLocalImage(imageDir, destination string) bool {
+	destination = parentPathRe.ReplaceAllString(destination, "")
+	return strings.HasPrefix(destination, imageDir+"/")
+}
 
 type customRenderer struct{}
 
@@ -66,24 +77,22 @@ func (r customRenderer) renderImage(w util.BufWriter, source []byte, node ast.No
 		return ast.WalkContinue, nil
 	}
 	n := node.(*ast.Image)
-	destination := util.EscapeHTML(n.Destination)
-	_, err := w.WriteString(`<img src="`)
-	if err != nil {
-		return 0, err
+	destination := string(util.EscapeHTML(n.Destination))
+	img := ""
+	if isLocalImage(IMAGE_DIR, destination) {
+		imagePath := parentPathRe.ReplaceAllString(destination, "")
+		path := filepath.Join(os.Getenv("SOURCE_DIR"), imagePath)
+		width, height, err := ImageSize(path)
+		if err != nil {
+			fmt.Printf("%s does not exist\n", path)
+			img = fmt.Sprintf(`<img src="%s" alt="%s">`, destination, destination)
+		} else {
+			img = fmt.Sprintf(`<img loading="lazy" src="%s" alt="%s" width="%d" height="%d">`, destination, destination, width, height)
+		}
+	} else {
+		img = fmt.Sprintf(`<img src="%s" alt="%s">`, destination, destination)
 	}
-	_, err = w.Write(destination)
-	if err != nil {
-		return 0, err
-	}
-	_, err = w.WriteString(`" alt="`)
-	if err != nil {
-		return 0, err
-	}
-	_, err = w.Write(destination)
-	if err != nil {
-		return 0, err
-	}
-	_, err = w.WriteString(`">`)
+	_, err := w.WriteString(img)
 	if err != nil {
 		return 0, err
 	}

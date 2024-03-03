@@ -219,6 +219,7 @@ func CreateHTML(layout, title, body, description, url, cssPath, indexMenu, heade
 	p.AllowAttrs("class").Matching(regexp.MustCompile(`^(anchor|Link)$`)).OnElements("a")
 	p.AllowAttrs("class").Matching(regexp.MustCompile(`^(index-menu|header-list)$`)).OnElements("nav")
 	p.AllowAttrs("class").Matching(regexp.MustCompile(`^(h1|h2|h3|h4)$`)).OnElements("p")
+	p.AllowAttrs("loading").Matching(regexp.MustCompile(`^lazy$`)).OnElements("img")
 	html := TITLE.ReplaceAllString(layout, p.Sanitize(title))
 	html = DESCRIPTION.ReplaceAllString(html, p.Sanitize(description))
 	html = strings.Replace(html, URL, p.Sanitize(url), 1)

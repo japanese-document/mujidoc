@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"fmt"
 	"io/fs"
 	"path/filepath"
+	"strings"
 
 	"github.com/pkg/errors"
 )
@@ -30,6 +32,23 @@ func createWalkDirFunc(paths *[]string, suffix string) (func(string, fs.DirEntry
 	return walkDirFunc, nil
 }
 
+// validateFileNames checks each file name in the provided slice of file paths for spaces (including tabs and newlines).
+//
+// Parameters:
+// - paths: A slice of strings, each representing a file path to validate.
+//
+// Returns:
+// - An error if any file name contains spaces, tabs, or newlines.
+// - nil if all file names are valid and do not contain spaces.
+func validateFileNames(paths []string) error {
+	for _, path := range paths {
+		if strings.ContainsAny(path, " \t\n") {
+			return errors.WithStack(fmt.Errorf("there are spaces in file name. the file name is %s", path))
+		}
+	}
+	return nil
+}
+
 // GetMarkDownFileNames searches the specified root directory and all of its subdirectories
 // for files with the ".md" extension and returns a slice containing the paths of all markdown files found.
 // Parameters:
@@ -42,6 +61,10 @@ func GetMarkDownFileNames(root string) ([]string, error) {
 	}
 	if err := filepath.WalkDir(root, walkDirFunc); err != nil {
 		return paths, errors.WithStack(err)
+	}
+	err = validateFileNames(paths)
+	if err != nil {
+		return paths, err
 	}
 	return paths, nil
 }

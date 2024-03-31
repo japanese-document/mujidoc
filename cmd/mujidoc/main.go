@@ -104,6 +104,7 @@ func main() {
 		log.Fatalf("%+v", err)
 	}
 
+	// 各ページのデータを取得
 	pages := []*utils.Page{}
 	if os.Getenv("SINGLE_PAGE") != "true" {
 		pages, err = utils.CreatePages(markDownFileNames, sourceDir, baseURL, os.Getenv("CATEGORIES"))
@@ -111,11 +112,17 @@ func main() {
 			log.Fatalf("%+v", err)
 		}
 	}
+
+	// もくじページに表示するページ一覧のデータを取得
 	indexItems, err := utils.CreateIndexItems(pages)
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}
+
+	// ページの左側に表示するもくじのHTMLを生成
 	indexMenu := utils.CreateIndexMenu(indexItems)
+
+	// ページレイアウトを取得
 	_pageLayout, err := os.ReadFile(os.Getenv("PAGE_LAYOUT"))
 	if err != nil {
 		log.Fatalf("%+v", errors.WithStack(err))

@@ -87,10 +87,7 @@ func createIndexHtmlFileTask(layout, outputDir, baseURL, header, title, descript
 	}
 }
 
-func main() {
-	sourceDir := os.Getenv("SOURCE_DIR")
-	outputDir := os.Getenv("OUTPUT_DIR")
-	baseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
+func cleanup(outputDir string) {
 	err := os.RemoveAll(outputDir)
 	if err != nil {
 		log.Fatalf("%+v", err)
@@ -99,10 +96,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}
+}
+
+func main() {
+	outputDir := os.Getenv("OUTPUT_DIR")
+	cleanup(outputDir)
+
+	sourceDir := os.Getenv("SOURCE_DIR")
 	markDownFileNames, err := utils.GetMarkDownFileNames(sourceDir)
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}
+	baseURL := strings.Trim(os.Getenv("BASE_URL"), "/")
 
 	// 各ページのデータを取得
 	pages := []*utils.Page{}

@@ -99,6 +99,10 @@ func cleanup(outputDir string) {
 }
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	eg, _ := errgroup.WithContext(ctx)
+
 	outputDir := os.Getenv("OUTPUT_DIR")
 	cleanup(outputDir)
 
@@ -118,6 +122,12 @@ func main() {
 		}
 	}
 
+	if os.Getenv("RSS") == "true" {
+		task := utils.CreateRssFileTask(pages, os.Getenv("TIME_ZONE"), outputDir, baseURL, os.Getenv("INDEX_PAGE_TITLE"),
+			os.Getenv("INDEX_PAGE_DESCRIPTION"))
+		eg.Go(task)
+	}
+
 	// もくじページに表示するページ一覧のデータを取得
 	indexItems, err := utils.CreateIndexItems(pages)
 	if err != nil {
@@ -133,10 +143,6 @@ func main() {
 		log.Fatalf("%+v", errors.WithStack(err))
 	}
 	pageLayout := string(_pageLayout)
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	eg, _ := errgroup.WithContext(ctx)
 
 	// markdownからhtmlを生成する
 	for _, markDownFileName := range markDownFileNames {
@@ -158,12 +164,6 @@ func main() {
 	// CSSファイルを作成する
 	task = css.CreateWriteTask(outputDir, utils.CSS_FILE_NAME)
 	eg.Go(task)
-
-	if os.Getenv("RSS") == "true" {
-		task := utils.CreateRssFileTask(pages, os.Getenv("TIME_ZONE"), outputDir, baseURL, os.Getenv("INDEX_PAGE_TITLE"),
-			os.Getenv("INDEX_PAGE_DESCRIPTION"))
-		eg.Go(task)
-	}
 
 	if err := eg.Wait(); err != nil {
 		log.Fatalf("%+v", err)

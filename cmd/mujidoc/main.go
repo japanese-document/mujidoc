@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 
 	"github.com/japanese-document/mujidoc/internal/css"
 	"github.com/japanese-document/mujidoc/internal/utils"
@@ -99,8 +101,9 @@ func cleanup(outputDir string) {
 }
 
 func main() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx, stop := signal.NotifyContext(context.Background(),
+		os.Interrupt, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
+	defer stop()
 	eg, _ := errgroup.WithContext(ctx)
 
 	outputDir := os.Getenv("OUTPUT_DIR")

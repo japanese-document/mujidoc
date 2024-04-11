@@ -105,7 +105,8 @@ func main() {
 	cleanup(outputDir)
 
 	sourceDir := os.Getenv("SOURCE_DIR")
-	markDownFileNames, err := utils.GetMarkDownFileNames(sourceDir)
+	fs := utils.FileSystem{}
+	markDownFileNames, err := utils.GetMarkDownFileNames(fs, sourceDir)
 	if err != nil {
 		log.Fatalf("%+v", err)
 	}

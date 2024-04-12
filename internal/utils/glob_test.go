@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-type MockFileSystem struct {
+type MockFilePath struct {
 	WalkDirFunc func(root string, fn fs.WalkDirFunc) error
 }
 
-func (m MockFileSystem) WalkDir(root string, fn fs.WalkDirFunc) error {
+func (m MockFilePath) WalkDir(root string, fn fs.WalkDirFunc) error {
 	return m.WalkDirFunc(root, fn)
 }
 
@@ -26,7 +26,7 @@ func (m mockDirEntry) Info() (fs.FileInfo, error) { return nil, nil }
 
 func TestGetMarkDownFileNames(t *testing.T) {
 	type args struct {
-		fs   IFileSystem
+		fs   IFilePath
 		root string
 	}
 	tests := []struct {
@@ -38,7 +38,7 @@ func TestGetMarkDownFileNames(t *testing.T) {
 		{
 			name: "Find markdown files successfully",
 			args: args{
-				fs: MockFileSystem{
+				fs: MockFilePath{
 					WalkDirFunc: func(root string, fn fs.WalkDirFunc) error {
 						err := fn("/path/to/markdown1.md", mockDirEntry{isDir: false}, nil)
 						if err != nil {

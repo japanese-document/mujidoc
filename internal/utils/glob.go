@@ -9,13 +9,13 @@ import (
 	"github.com/pkg/errors"
 )
 
-type IFileSystem interface {
+type IFilePath interface {
 	WalkDir(root string, fn fs.WalkDirFunc) error
 }
 
-type FileSystem struct{}
+type FilePath struct{}
 
-func (f FileSystem) WalkDir(root string, fn fs.WalkDirFunc) error {
+func (fp FilePath) WalkDir(root string, fn fs.WalkDirFunc) error {
 	return filepath.WalkDir(root, fn)
 }
 
@@ -63,13 +63,13 @@ func validateFileNames(paths []string) error {
 // for files with the ".md" extension and returns a slice containing the paths of all markdown files found.
 // Parameters:
 // - root: The root directory from which the search will begin.
-func GetMarkDownFileNames(fs IFileSystem, root string) ([]string, error) {
+func GetMarkDownFileNames(fp IFilePath, root string) ([]string, error) {
 	paths := []string{}
 	walkDirFunc, err := createWalkDirFunc(&paths, ".md")
 	if err != nil {
 		return paths, err
 	}
-	if err := fs.WalkDir(root, walkDirFunc); err != nil {
+	if err := fp.WalkDir(root, walkDirFunc); err != nil {
 		return paths, errors.WithStack(err)
 	}
 	err = validateFileNames(paths)

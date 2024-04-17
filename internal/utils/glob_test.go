@@ -30,11 +30,24 @@ func (m mockDirEntry) Info() (fs.FileInfo, error) { return nil, nil }
 func TestGetMarkDownFileNames(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	mfp := mock_utils.NewMockIFilePath(ctrl)
-	mfp.EXPECT().WalkDir(gomock.Any(), gomock.Any()).Do(func(root string, fn fs.WalkDirFunc) {
-		fn("/path/to/markdown1.md", mockDirEntry{isDir: false}, nil)
-		fn("/path/to/not_markdown.txt", mockDirEntry{isDir: false}, nil)
-		fn("/path/to/markdown2.md", mockDirEntry{isDir: false}, nil)
-		fn("/path/to/markdown3.md", mockDirEntry{isDir: true}, nil)
+	mfp.EXPECT().WalkDir(gomock.Any(), gomock.Any()).Do(func(root string, fn fs.WalkDirFunc) error {
+		err := fn("/path/to/markdown1.md", mockDirEntry{isDir: false}, nil)
+		if err != nil {
+			return err
+		}
+		err = fn("/path/to/not_markdown.txt", mockDirEntry{isDir: false}, nil)
+		if err != nil {
+			return err
+		}
+		err = fn("/path/to/markdown2.md", mockDirEntry{isDir: false}, nil)
+		if err != nil {
+			return err
+		}
+		err = fn("/path/to/markdown3.md", mockDirEntry{isDir: true}, nil)
+		if err != nil {
+			return err
+		}
+		return nil
 	}).Return(nil)
 
 	type args struct {

@@ -6,6 +6,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/microcosm-cc/bluemonday v1.0.26
 	github.com/pkg/errors v0.9.1
+	go.uber.org/mock v0.4.0
 	golang.org/x/sync v0.6.0
 )
 

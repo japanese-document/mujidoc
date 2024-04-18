@@ -9,14 +9,6 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
-type MockFilePath struct {
-	WalkDirFunc func(root string, fn fs.WalkDirFunc) error
-}
-
-func (m MockFilePath) WalkDir(root string, fn fs.WalkDirFunc) error {
-	return m.WalkDirFunc(root, fn)
-}
-
 type mockDirEntry struct {
 	isDir bool
 	name  string
@@ -27,9 +19,12 @@ func (m mockDirEntry) IsDir() bool                { return m.isDir }
 func (m mockDirEntry) Type() fs.FileMode          { return 0 }
 func (m mockDirEntry) Info() (fs.FileInfo, error) { return nil, nil }
 
-func TestGetMarkDownFileNames(t *testing.T) {
+func newMockFilePath(t *testing.T) (*mock_utils.MockIFilePath, *gomock.Controller) {
 	ctrl := gomock.NewController(t)
-	mfp := mock_utils.NewMockIFilePath(ctrl)
+	return mock_utils.NewMockIFilePath(ctrl), ctrl
+}
+
+func mfp1(mfp *mock_utils.MockIFilePath) *mock_utils.MockIFilePath {
 	mfp.EXPECT().WalkDir(gomock.Any(), gomock.Any()).Do(func(root string, fn fs.WalkDirFunc) error {
 		err := fn("/path/to/markdown1.md", mockDirEntry{isDir: false}, nil)
 		if err != nil {
@@ -48,10 +43,24 @@ func TestGetMarkDownFileNames(t *testing.T) {
 			return err
 		}
 		return nil
-	}).Return(nil)
+	})
+	return mfp
+}
 
+func mfp2(mfp *mock_utils.MockIFilePath) *mock_utils.MockIFilePath {
+	mfp.EXPECT().WalkDir(gomock.Any(), gomock.Any()).Do(func(root string, fn fs.WalkDirFunc) error {
+		err := fn("/path/to/mark down1.md", mockDirEntry{isDir: false}, nil)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	return mfp
+}
+
+func TestGetMarkDownFileNames(t *testing.T) {
 	type args struct {
-		fp   IFilePath
+		fp   func(mfp *mock_utils.MockIFilePath) *mock_utils.MockIFilePath
 		root string
 	}
 	tests := []struct {
@@ -63,16 +72,27 @@ func TestGetMarkDownFileNames(t *testing.T) {
 		{
 			name: "Find markdown files successfully",
 			args: args{
-				fp:   mfp,
+				fp:   mfp1,
 				root: "/path/to",
 			},
 			want:    []string{"/path/to/markdown1.md", "/path/to/markdown2.md"},
 			wantErr: false,
 		},
+		{
+			name: "err",
+			args: args{
+				fp:   mfp2,
+				root: "/path/to",
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := GetMarkDownFileNames(tt.args.fp, tt.args.root)
+			mfp, ctrl := newMockFilePath(t)
+			defer ctrl.Finish()
+			got, err := GetMarkDownFileNames(tt.args.fp(mfp), tt.args.root)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetMarkDownFileNames() error = %v, wantErr %v", err, tt.wantErr)
 				return

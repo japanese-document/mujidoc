@@ -74,7 +74,7 @@ func GetMarkDownFileNames(fp IFilePath, root string) ([]string, error) {
 	}
 	err = validateFileNames(paths)
 	if err != nil {
-		return paths, err
+		return nil, err
 	}
 	return paths, nil
 }

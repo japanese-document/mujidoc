@@ -9,6 +9,7 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
+// #region Mock
 type mockDirEntry struct {
 	isDir bool
 	name  string
